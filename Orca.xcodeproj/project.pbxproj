@@ -34,12 +34,11 @@
 		0F16E35D1C493AD7003C9EC9 /* win32.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F16E3361C493AD7003C9EC9 /* win32.h */; };
 		0F16E3601C493B00003C9EC9 /* RedisClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F16E35E1C493B00003C9EC9 /* RedisClient.h */; };
 		0F16E3611C493B00003C9EC9 /* RedisClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F16E35F1C493B00003C9EC9 /* RedisClient.m */; };
-		0F7FFF101C49E561004A5E13 /* tubii.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0F7FFF0A1C49E561004A5E13 /* tubii.gif */; settings = {ASSET_TAGS = (); }; };
-		0F7FFF111C49E561004A5E13 /* TUBiiController.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F7FFF0B1C49E561004A5E13 /* TUBiiController.h */; settings = {ASSET_TAGS = (); }; };
-		0F7FFF121C49E561004A5E13 /* TUBiiController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7FFF0C1C49E561004A5E13 /* TUBiiController.m */; settings = {ASSET_TAGS = (); }; };
-		0F7FFF131C49E561004A5E13 /* TUBiiController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F7FFF0D1C49E561004A5E13 /* TUBiiController.xib */; settings = {ASSET_TAGS = (); }; };
-		0F7FFF141C49E561004A5E13 /* TUBiiModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F7FFF0E1C49E561004A5E13 /* TUBiiModel.h */; settings = {ASSET_TAGS = (); }; };
-		0F7FFF151C49E561004A5E13 /* TUBiiModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7FFF0F1C49E561004A5E13 /* TUBiiModel.m */; settings = {ASSET_TAGS = (); }; };
+		0F7FFF1E1C49E63C004A5E13 /* TUBii.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F7FFF181C49E63C004A5E13 /* TUBii.xib */; settings = {ASSET_TAGS = (); }; };
+		0F7FFF1F1C49E63C004A5E13 /* TUBiiController.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F7FFF191C49E63C004A5E13 /* TUBiiController.h */; settings = {ASSET_TAGS = (); }; };
+		0F7FFF201C49E63C004A5E13 /* TUBiiController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7FFF1A1C49E63C004A5E13 /* TUBiiController.m */; settings = {ASSET_TAGS = (); }; };
+		0F7FFF211C49E63C004A5E13 /* TUBiiModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F7FFF1B1C49E63C004A5E13 /* TUBiiModel.h */; settings = {ASSET_TAGS = (); }; };
+		0F7FFF221C49E63C004A5E13 /* TUBiiModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7FFF1C1C49E63C004A5E13 /* TUBiiModel.m */; settings = {ASSET_TAGS = (); }; };
 		146822430FC4799C0082BD70 /* ORCircularBufferUV.h in Headers */ = {isa = PBXBuildFile; fileRef = 146822410FC4799C0082BD70 /* ORCircularBufferUV.h */; };
 		146822440FC4799C0082BD70 /* ORCircularBufferUV.m in Sources */ = {isa = PBXBuildFile; fileRef = 146822420FC4799C0082BD70 /* ORCircularBufferUV.m */; };
 		1C50F9F108033CA9008D18EA /* ADC2249.nib in Resources */ = {isa = PBXBuildFile; fileRef = 1C50F9E608033CA9008D18EA /* ADC2249.nib */; };
@@ -3711,12 +3710,12 @@
 		0F16E3361C493AD7003C9EC9 /* win32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = win32.h; sourceTree = "<group>"; };
 		0F16E35E1C493B00003C9EC9 /* RedisClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RedisClient.h; sourceTree = "<group>"; };
 		0F16E35F1C493B00003C9EC9 /* RedisClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RedisClient.m; sourceTree = "<group>"; };
-		0F7FFF0A1C49E561004A5E13 /* tubii.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = tubii.gif; sourceTree = "<group>"; };
-		0F7FFF0B1C49E561004A5E13 /* TUBiiController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TUBiiController.h; sourceTree = "<group>"; };
-		0F7FFF0C1C49E561004A5E13 /* TUBiiController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TUBiiController.m; sourceTree = "<group>"; };
-		0F7FFF0D1C49E561004A5E13 /* TUBiiController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TUBiiController.xib; sourceTree = "<group>"; };
-		0F7FFF0E1C49E561004A5E13 /* TUBiiModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TUBiiModel.h; sourceTree = "<group>"; };
-		0F7FFF0F1C49E561004A5E13 /* TUBiiModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TUBiiModel.m; sourceTree = "<group>"; };
+		0F7FFF171C49E63C004A5E13 /* tubii.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = tubii.gif; sourceTree = "<group>"; };
+		0F7FFF181C49E63C004A5E13 /* TUBii.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TUBii.xib; sourceTree = "<group>"; };
+		0F7FFF191C49E63C004A5E13 /* TUBiiController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TUBiiController.h; sourceTree = "<group>"; };
+		0F7FFF1A1C49E63C004A5E13 /* TUBiiController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TUBiiController.m; sourceTree = "<group>"; };
+		0F7FFF1B1C49E63C004A5E13 /* TUBiiModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TUBiiModel.h; sourceTree = "<group>"; };
+		0F7FFF1C1C49E63C004A5E13 /* TUBiiModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TUBiiModel.m; sourceTree = "<group>"; };
 		146822410FC4799C0082BD70 /* ORCircularBufferUV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ORCircularBufferUV.h; path = Source/Objects/Hardware/HV/UnivVoltHV/ORCircularBufferUV.h; sourceTree = SOURCE_ROOT; };
 		146822420FC4799C0082BD70 /* ORCircularBufferUV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ORCircularBufferUV.m; path = Source/Objects/Hardware/HV/UnivVoltHV/ORCircularBufferUV.m; sourceTree = SOURCE_ROOT; };
 		1C50F9E608033CA9008D18EA /* ADC2249.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = ADC2249.nib; sourceTree = "<group>"; };
@@ -7059,15 +7058,15 @@
 			path = adapters;
 			sourceTree = "<group>";
 		};
-		0F7FFF091C49E560004A5E13 /* TUBii */ = {
+		0F7FFF161C49E63C004A5E13 /* TUBii */ = {
 			isa = PBXGroup;
 			children = (
-				0F7FFF0A1C49E561004A5E13 /* tubii.gif */,
-				0F7FFF0B1C49E561004A5E13 /* TUBiiController.h */,
-				0F7FFF0C1C49E561004A5E13 /* TUBiiController.m */,
-				0F7FFF0D1C49E561004A5E13 /* TUBiiController.xib */,
-				0F7FFF0E1C49E561004A5E13 /* TUBiiModel.h */,
-				0F7FFF0F1C49E561004A5E13 /* TUBiiModel.m */,
+				0F7FFF171C49E63C004A5E13 /* tubii.gif */,
+				0F7FFF181C49E63C004A5E13 /* TUBii.xib */,
+				0F7FFF191C49E63C004A5E13 /* TUBiiController.h */,
+				0F7FFF1A1C49E63C004A5E13 /* TUBiiController.m */,
+				0F7FFF1B1C49E63C004A5E13 /* TUBiiModel.h */,
+				0F7FFF1C1C49E63C004A5E13 /* TUBiiModel.m */,
 			);
 			path = TUBii;
 			sourceTree = "<group>";
@@ -11224,7 +11223,7 @@
 			isa = PBXGroup;
 			children = (
 				3672CF7D1C4EB15000870996 /* CAEN */,
-				0F7FFF091C49E560004A5E13 /* TUBii */,
+				0F7FFF161C49E63C004A5E13 /* TUBii */,
 				0F16E30D1C493AD6003C9EC9 /* hiredis */,
 				0F16E30C1C493ACE003C9EC9 /* RedisClient */,
 				6B40D65A1B2B79960000F7C1 /* ResistorDB */,
@@ -14677,7 +14676,7 @@
 				8468E6FA06932C3F00B57CE8 /* NcdLogAmpTask.h in Headers */,
 				846798C5069475DA00DF8B2A /* StatusLog.h in Headers */,
 				846798E9069488AE00DF8B2A /* NcdLinearityTask.h in Headers */,
-				0F7FFF141C49E561004A5E13 /* TUBiiModel.h in Headers */,
+				0F7FFF211C49E63C004A5E13 /* TUBiiModel.h in Headers */,
 				846799570694B82200DF8B2A /* NcdThresholdTask.h in Headers */,
 				84F9836D06A441CF0087FA3E /* ORGTIDGenerator.h in Headers */,
 				848326E906DA614B00172F1C /* ORDualPortLAMController.h in Headers */,
@@ -15688,7 +15687,7 @@
 				2DD0C8C5193FBAE4009112B2 /* ORKatrinV4SLTController.h in Headers */,
 				2DD0C8C7193FBAE4009112B2 /* ORKatrinV4SLTDecoder.h in Headers */,
 				2DD0C8C9193FBAE4009112B2 /* ORKatrinV4SLTDefs.h in Headers */,
-				0F7FFF111C49E561004A5E13 /* TUBiiController.h in Headers */,
+				0F7FFF1F1C49E63C004A5E13 /* TUBiiController.h in Headers */,
 				2DD0C8CA193FBAE4009112B2 /* ORKatrinV4SLTModel.h in Headers */,
 				0F16E3421C493AD7003C9EC9 /* async.h in Headers */,
 				2D294530199E6A9400F68093 /* ORAmptekDP5Controller.h in Headers */,
@@ -15986,6 +15985,7 @@
 				84EC3475079D991000188ED3 /* NoBit3DriverHelp.plist in Resources */,
 				84B5197C191D285A003A580B /* BurstMonitor.nib in Resources */,
 				6B40D6661B2B79960000F7C1 /* ResistorDBWindow.xib in Resources */,
+				0F7FFF1E1C49E63C004A5E13 /* TUBii.xib in Resources */,
 				8446CE1F07B847B8006CD9C4 /* AD413A.nib in Resources */,
 				8446CE2007B847B8006CD9C4 /* AD413ACard.gif in Resources */,
 				849415831B330FEB00ED42F8 /* offBox.tif in Resources */,
@@ -16117,7 +16117,7 @@
 				6B40D6471B2B79170000F7C1 /* CameraPic.jpg in Resources */,
 				848E3BCB09DB0B3E0003F7A2 /* MailCenter.nib in Resources */,
 				844D8CC80A069CA200E83C57 /* MCarrier.gif in Resources */,
-				0F7FFF101C49E561004A5E13 /* tubii.gif in Resources */,
+				0F7FFF1D1C49E63C004A5E13 /* tubii.gif in Resources */,
 				844D93050A0A79AA00E83C57 /* Pulser33220Icon.tif in Resources */,
 				843A4D4B0A1288A7003DF248 /* NoUSBServiceHelp.plist in Resources */,
 				84A30C560A1E44D400DAE618 /* HPPulser33220.nib in Resources */,
@@ -16663,7 +16663,6 @@
 				84DF4A09162DCE6B00261144 /* Gretina4MCard.gif in Resources */,
 				84DF4B15162DF2C200261144 /* Gretina4MWaveform.png in Resources */,
 				84DF4C9E162F1B2100261144 /* ArduinoUNO.nib in Resources */,
-				0F7FFF131C49E561004A5E13 /* TUBiiController.xib in Resources */,
 				84DF4C9F162F1B2100261144 /* ArduinoUNO.tif in Resources */,
 				84F909871638383C00E9FD24 /* Pulser33500.nib in Resources */,
 				84F9098D1638383C00E9FD24 /* Pulser33500Icon.tif in Resources */,
@@ -17090,7 +17089,7 @@
 				8435626508FDB287002864C7 /* ORContainerOutputModel.m in Sources */,
 				8435626708FDB287002864C7 /* ORContainerFeedThru.m in Sources */,
 				8435626908FDB287002864C7 /* ORContainerFeedThruController.m in Sources */,
-				0F7FFF151C49E561004A5E13 /* TUBiiModel.m in Sources */,
+				0F7FFF221C49E63C004A5E13 /* TUBiiModel.m in Sources */,
 				8435653208FEFFB8002864C7 /* ORMessagePipe.m in Sources */,
 				84D05976090017B200A99A83 /* ORContainerModel.m in Sources */,
 				8408A4BE09071C6A004A3B34 /* ORHV2132Controller.m in Sources */,
@@ -17643,7 +17642,7 @@
 				8494C0261316CEBA00151E7B /* ORBootBarController.m in Sources */,
 				8494C0281316CEBA00151E7B /* ORBootBarModel.m in Sources */,
 				8494C1381317E2E200151E7B /* ORCouchDB.m in Sources */,
-				0F7FFF121C49E561004A5E13 /* TUBiiController.m in Sources */,
+				0F7FFF201C49E63C004A5E13 /* TUBiiController.m in Sources */,
 				8494C13A1317E2E200151E7B /* ORSqlConnection.m in Sources */,
 				840463C4183515AC00F69B23 /* ORGretinaTriggerController.m in Sources */,
 				8494C13C1317E2E200151E7B /* ORSqlResult.m in Sources */,
