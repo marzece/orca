@@ -34,6 +34,7 @@
 		0F16E35D1C493AD7003C9EC9 /* win32.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F16E3361C493AD7003C9EC9 /* win32.h */; };
 		0F16E3601C493B00003C9EC9 /* RedisClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F16E35E1C493B00003C9EC9 /* RedisClient.h */; };
 		0F16E3611C493B00003C9EC9 /* RedisClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F16E35F1C493B00003C9EC9 /* RedisClient.m */; };
+		0F1F7A0B1C7EA42E002B4D50 /* TUBiiTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F1F7A0A1C7EA42E002B4D50 /* TUBiiTest.m */; settings = {ASSET_TAGS = (); COMPILER_FLAGS = "-fno-objc-arc -Wno-gnu"; }; };
 		0F7FFF1E1C49E63C004A5E13 /* TUBii.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F7FFF181C49E63C004A5E13 /* TUBii.xib */; settings = {ASSET_TAGS = (); }; };
 		0F7FFF1F1C49E63C004A5E13 /* TUBiiController.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F7FFF191C49E63C004A5E13 /* TUBiiController.h */; settings = {ASSET_TAGS = (); }; };
 		0F7FFF201C49E63C004A5E13 /* TUBiiController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7FFF1A1C49E63C004A5E13 /* TUBiiController.m */; settings = {ASSET_TAGS = (); }; };
@@ -3710,6 +3711,7 @@
 		0F16E3361C493AD7003C9EC9 /* win32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = win32.h; sourceTree = "<group>"; };
 		0F16E35E1C493B00003C9EC9 /* RedisClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RedisClient.h; sourceTree = "<group>"; };
 		0F16E35F1C493B00003C9EC9 /* RedisClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RedisClient.m; sourceTree = "<group>"; };
+		0F1F7A0A1C7EA42E002B4D50 /* TUBiiTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TUBiiTest.m; sourceTree = "<group>"; };
 		0F7FFF171C49E63C004A5E13 /* tubii.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = tubii.gif; sourceTree = "<group>"; };
 		0F7FFF181C49E63C004A5E13 /* TUBii.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TUBii.xib; sourceTree = "<group>"; };
 		0F7FFF191C49E63C004A5E13 /* TUBiiController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TUBiiController.h; sourceTree = "<group>"; };
@@ -7499,6 +7501,7 @@
 		369E73391C7B5E6400A7F89E /* OrcaTests */ = {
 			isa = PBXGroup;
 			children = (
+				0F1F7A0A1C7EA42E002B4D50 /* TUBiiTest.m */,
 				369E73441C7B5E8E00A7F89E /* NSLogTest.m */,
 				369E733A1C7B5E6400A7F89E /* Supporting Files */,
 			);
@@ -16117,7 +16120,6 @@
 				6B40D6471B2B79170000F7C1 /* CameraPic.jpg in Resources */,
 				848E3BCB09DB0B3E0003F7A2 /* MailCenter.nib in Resources */,
 				844D8CC80A069CA200E83C57 /* MCarrier.gif in Resources */,
-				0F7FFF1D1C49E63C004A5E13 /* tubii.gif in Resources */,
 				844D93050A0A79AA00E83C57 /* Pulser33220Icon.tif in Resources */,
 				843A4D4B0A1288A7003DF248 /* NoUSBServiceHelp.plist in Resources */,
 				84A30C560A1E44D400DAE618 /* HPPulser33220.nib in Resources */,
@@ -16766,6 +16768,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				369E73451C7B5E8E00A7F89E /* NSLogTest.m in Sources */,
+				0F1F7A0B1C7EA42E002B4D50 /* TUBiiTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

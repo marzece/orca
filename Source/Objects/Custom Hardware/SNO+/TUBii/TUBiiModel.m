@@ -584,13 +584,13 @@
     // Helper function converts a bit value to a float value where it's assume
     // that if all the bits are zero the desired float value is MinVal and
     // if all the bits are 1 the desired float value is maxVal.
-    float stepSize = (maxVal - minVal)/(pow(2, nBits)-1.0);
+    float stepSize = (maxVal - minVal)/((float)pow(2, nBits)-1);
     return bits*stepSize+minVal;
 }
 - (NSUInteger) ConvertValueToBits: (float) value NBits: (int) nBits MinVal: (float) minVal MaxVal: (float) maxVal{
     // Helper function converts a float value to a bit value.
-    // It's assumed that a float value equal to MinVal is equal to a bit value of all 0s
-    // and a float value equal to MaxVal is equal to all 1's
+    // It's assumed that a float value equal to MinVal has a bit value of all 0s
+    // and a float value equal to MaxVal is all 1's
     float stepSize = (maxVal - minVal)/(pow(2,nBits)-1.0);
     return (value - minVal)/stepSize;
 }
