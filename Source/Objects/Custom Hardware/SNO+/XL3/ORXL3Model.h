@@ -261,6 +261,7 @@ enum {
 - (void) setXl3PedestalMask:(unsigned long)anXl3PedestalMask;
 - (float) xl3VltThreshold:(unsigned short)idx;
 - (void) setXl3VltThreshold:(unsigned short)idx withValue:(float)aThreashold;
+- (void) ReadSlotConfig:(int) slotNum;
 
 - (int) selectedRegister;
 - (void) setSelectedRegister:(int)aSelectedRegister;

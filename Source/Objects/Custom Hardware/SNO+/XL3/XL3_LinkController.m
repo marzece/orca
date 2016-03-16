@@ -955,6 +955,11 @@ static NSDictionary* xl3Ops;
 
 
 #pragma mark •••Actions
+- (IBAction)ReadStateButton:(id)sender
+{
+    
+    
+}
 - (IBAction) incXL3Action:(id)sender
 {
 	[self incModelSortedBy:@selector(XL3NumberCompare:)];

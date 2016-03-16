@@ -4105,6 +4105,36 @@ void SwapLongBlock(void* p, int32_t n)
 
     }
 }
+- (void) ReadSlotConfig:(int) slotNum
+{
+    
+    XL3Packet packet;
+    memset(packet.payload, 0, XL3_PAYLOAD_SIZE);
+   
+    ReadCardConfigArgs* args = (ReadCardConfigArgs*)packet.payload;
+    ReadCardConfigResults* results = (ReadCardConfigResults*)packet.payload;
+    args=slotNum;
+    @try {
+        [[self xl3Link] sendCommand:READ_CARD_CONFIG_ID withPayload:packet.payload expectResponse:YES];
+          }
+    @catch (NSException *e) {
+        NSLog(@"%@ error while performing panic down; error: %@ reason: %@\n",
+              [[self xl3Link] crateName], [e name], [e reason]);
+    }
+    NSString* str =[NSString stringWithFormat:@"MB_ID: %x\nDB_IDs %x, %x, %x %x\n",results->mb.mbID,results->mb.dbID[0],results->mb.dbID[1],results->mb.dbID[2],results->mb.dbID[3]];
+    [str stringByAppendingFormat:@"Tr20:\n"];
+    for(int i=0;i<32;i++)
+    {
+        [str stringByAppendingFormat:@"mask: 0x%x width: 0x%x delay: 0x%x\n",results->mb.tr20.mask[i],results->mb.tr20.tWidth[i],results->mb.tr20.tDelay[i]];
+    }
+    [str stringByAppendingFormat:@"Tr100:\n"];
+    for(int i=0;i<32;i++)
+    {
+        [str stringByAppendingFormat:@"mask: 0x%x delay: 0x%x\n",results->mb.tr100.mask[i],results->mb.tr100.tDelay[i]];
+    }
+    NSLog(str);
+    return;
+}
 
 - (void) setVltThreshold
 {

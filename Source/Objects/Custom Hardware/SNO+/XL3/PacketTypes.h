@@ -48,6 +48,7 @@
 #define SET_ALARM_LEVELS_ID       (0x30) //!< Set one or many of the voltage alarm dacs
 #define MULTI_SET_CRATE_PEDS_ID   (0x31) //!< Unlike set_crate_pedestals_id, allows different mask per slot, and doesn't change slots not in the mask
 #define BOARD_ID_WRITE_ID         (0x32)
+#define READ_CARD_CONFIG_ID       (0x33)
 // HV Tasks
 #define SET_HV_RELAYS_ID          (0x40) //!< turns on/off hv relays
 #define HV_READBACK_ID			      (0x42) //!< reads voltage and current	
@@ -64,7 +65,6 @@
 #define CRATE_NOISE_RATE_ID       (0x66) //!< check the noise rate in a slot			
 #define LOCAL_VMON_ID             (0x68)
 //@}
-
 
 #define CALD_RESPONSE_ID 0xAA
 #define PING_ID 0xBB
@@ -416,6 +416,14 @@ typedef struct{
 typedef struct{
   uint32_t busErrors;
 } BoardIDWriteResults;
+
+typedef struct {
+    int slotNum;
+}ReadCardConfigArgs;
+
+typedef struct {
+    MB mb;
+}ReadCardConfigResults;
 
 typedef struct{
   uint32_t slotNum;

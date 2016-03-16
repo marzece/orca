@@ -276,6 +276,7 @@
 	
 
 - (IBAction)hvRelayMaskHighAction:(id)sender;
+- (IBAction)ReadStateButton:(id)sender;
 - (IBAction)hvRelayMaskLowAction:(id)sender;
 - (IBAction)hvRelayMaskMatrixAction:(id)sender;
 - (IBAction)hvRelaySetAction:(id)sender;
