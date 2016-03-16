@@ -4107,7 +4107,7 @@ void SwapLongBlock(void* p, int32_t n)
 }
 - (void) ReadSlotConfig:(int) slotNum
 {
-    
+    NSLog(@"Going to read slot %d",slotNum);
     XL3Packet packet;
     memset(packet.payload, 0, XL3_PAYLOAD_SIZE);
    

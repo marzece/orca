@@ -957,8 +957,14 @@ static NSDictionary* xl3Ops;
 #pragma mark •••Actions
 - (IBAction)ReadStateButton:(id)sender
 {
-    
-    
+
+    for(int i =0;i<16;i++)
+    {
+        if([model slotMask] & (1<<i))
+        {
+            [model ReadSlotConfig:i];
+        }
+    }
 }
 - (IBAction) incXL3Action:(id)sender
 {
