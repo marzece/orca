@@ -34,6 +34,9 @@
 		0F16E35D1C493AD7003C9EC9 /* win32.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F16E3361C493AD7003C9EC9 /* win32.h */; };
 		0F16E3601C493B00003C9EC9 /* RedisClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F16E35E1C493B00003C9EC9 /* RedisClient.h */; };
 		0F16E3611C493B00003C9EC9 /* RedisClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F16E35F1C493B00003C9EC9 /* RedisClient.m */; };
+		0F4888771C99A62100068BC2 /* PeddlerController.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F4888741C99A62100068BC2 /* PeddlerController.h */; settings = {ASSET_TAGS = (); }; };
+		0F4888781C99A62100068BC2 /* PeddlerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F4888751C99A62100068BC2 /* PeddlerController.m */; settings = {ASSET_TAGS = (); }; };
+		0F4888791C99A62100068BC2 /* Peddler.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F4888761C99A62100068BC2 /* Peddler.xib */; settings = {ASSET_TAGS = (); }; };
 		146822430FC4799C0082BD70 /* ORCircularBufferUV.h in Headers */ = {isa = PBXBuildFile; fileRef = 146822410FC4799C0082BD70 /* ORCircularBufferUV.h */; };
 		146822440FC4799C0082BD70 /* ORCircularBufferUV.m in Sources */ = {isa = PBXBuildFile; fileRef = 146822420FC4799C0082BD70 /* ORCircularBufferUV.m */; };
 		1C50F9F108033CA9008D18EA /* ADC2249.nib in Resources */ = {isa = PBXBuildFile; fileRef = 1C50F9E608033CA9008D18EA /* ADC2249.nib */; };
@@ -3695,6 +3698,9 @@
 		0F16E3361C493AD7003C9EC9 /* win32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = win32.h; sourceTree = "<group>"; };
 		0F16E35E1C493B00003C9EC9 /* RedisClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RedisClient.h; sourceTree = "<group>"; };
 		0F16E35F1C493B00003C9EC9 /* RedisClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RedisClient.m; sourceTree = "<group>"; };
+		0F4888741C99A62100068BC2 /* PeddlerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeddlerController.h; sourceTree = "<group>"; };
+		0F4888751C99A62100068BC2 /* PeddlerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeddlerController.m; sourceTree = "<group>"; };
+		0F4888761C99A62100068BC2 /* Peddler.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Peddler.xib; sourceTree = "<group>"; };
 		146822410FC4799C0082BD70 /* ORCircularBufferUV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ORCircularBufferUV.h; path = Source/Objects/Hardware/HV/UnivVoltHV/ORCircularBufferUV.h; sourceTree = SOURCE_ROOT; };
 		146822420FC4799C0082BD70 /* ORCircularBufferUV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ORCircularBufferUV.m; path = Source/Objects/Hardware/HV/UnivVoltHV/ORCircularBufferUV.m; sourceTree = SOURCE_ROOT; };
 		1C50F9E608033CA9008D18EA /* ADC2249.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = ADC2249.nib; sourceTree = "<group>"; };
@@ -11037,6 +11043,9 @@
 			isa = PBXGroup;
 			children = (
 				6B325E111B2F4334002E2DD7 /* MTC.xib */,
+				0F4888741C99A62100068BC2 /* PeddlerController.h */,
+				0F4888751C99A62100068BC2 /* PeddlerController.m */,
+				0F4888761C99A62100068BC2 /* Peddler.xib */,
 				849928100DCB997C00E82DB4 /* MTCCard.gif */,
 				849928110DCB997C00E82DB4 /* ORMTCController.h */,
 				849928120DCB997C00E82DB4 /* ORMTCController.m */,
@@ -14763,6 +14772,7 @@
 				840E00100944B29000049827 /* ORProcessHWAccessor.h in Headers */,
 				840E00120944B29000049827 /* ORProcessHwAccessorController.h in Headers */,
 				0F16E3561C493AD7003C9EC9 /* net.h in Headers */,
+				0F4888771C99A62100068BC2 /* PeddlerController.h in Headers */,
 				840E00140944B29000049827 /* ORProcessNub.h in Headers */,
 				840E00160944B29000049827 /* ORInputElement.h in Headers */,
 				840E00180944B29000049827 /* ORSPDTRelayController.h in Headers */,
@@ -15732,6 +15742,7 @@
 				8434A25D055B3287002D3102 /* Histo.nib in Resources */,
 				8434A25E055B3287002D3102 /* Histo.gif in Resources */,
 				8434A25F055B3287002D3102 /* FanIn.nib in Resources */,
+				0F4888791C99A62100068BC2 /* Peddler.xib in Resources */,
 				8434A263055B3287002D3102 /* AlarmWindow.nib in Resources */,
 				8434A264055B3287002D3102 /* FanOut.nib in Resources */,
 				8434A265055B3287002D3102 /* IP408.gif in Resources */,
@@ -16709,6 +16720,7 @@
 				8434A2DA055B3287002D3102 /* ORFanOutModel.m in Sources */,
 				8434A2DB055B3287002D3102 /* ORIP408Controller.m in Sources */,
 				8434A2DD055B3287002D3102 /* ORIP408Model.m in Sources */,
+				0F4888781C99A62100068BC2 /* PeddlerController.m in Sources */,
 				8434A2DE055B3287002D3102 /* ORFifoController.m in Sources */,
 				8434A2E0055B3287002D3102 /* ORFifoModel.m in Sources */,
 				8434A2E1055B3287002D3102 /* ORIPCarrierController.m in Sources */,

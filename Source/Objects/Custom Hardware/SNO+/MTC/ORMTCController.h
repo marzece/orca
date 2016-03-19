@@ -17,6 +17,7 @@
 //express or implied, or assume any liability or responsibility 
 //for the use of this software.
 //-------------------------------------------------------------
+@class PeddlerController;
 
 @interface ORMTCController : OrcaObjectController {
 
@@ -58,7 +59,7 @@
 	IBOutlet NSButton*		continuePedestalsButton;
 	IBOutlet NSButton*		fireFixedTimePedestalsButton;
 	IBOutlet NSButton*		stopFixedTimePedestalsButton;
-	IBOutlet NSTextField*		fixedTimePedestalsCountField;
+    IBOutlet NSTextField*		fixedTimePedestalsCountField;
 	IBOutlet NSTextField*		fixedTimePedestalsDelayField;
 	IBOutlet NSMatrix*		triggerZeroMatrix;
 	IBOutlet NSButton*		findTriggerZerosButton;
@@ -113,6 +114,8 @@
     NSSize  standardOpsSize;
     NSSize  settingsSize;
     NSSize  triggerSize;
+
+    PeddlerController* peddler;
 
 }
 
@@ -193,6 +196,8 @@
 - (IBAction) standardStopPedestalsFixedTime:(id) sender;
 - (IBAction) standardSetPedestalsCount:(id) sender;
 - (IBAction) standardSetPedestalsDelay:(id) sender;
+- (IBAction) openPeddlerDialog: (id) sender;
+
 - (IBAction) standardFindTriggerZeroes:(id) sender;
 - (IBAction) standardStopFindTriggerZeroes:(id) sender;
 - (IBAction) standardPulserFeeds:(id)sender;

@@ -27,6 +27,8 @@
 #import "ORTimeRate.h"
 #import "ORMTC_Constants.h"
 #import "ORSelectorSequence.h"
+#import "PeddlerController.h"
+
 
 #pragma mark •••PrivateInterface
 @interface ORMTCController (private)
@@ -87,6 +89,12 @@
     [tabView selectTabViewItemAtIndex: index];
     [self populatePullDown];
 
+}
+- (void) dealloc {
+    if(peddler) {
+    [peddler release];
+    }
+    [super dealloc];
 }
 
 #pragma mark •••Notifications
@@ -820,6 +828,14 @@
 	if (aValue < 0.1) aValue = 0.1;
 	if (aValue > 2000000) aValue = 2000000;
 	[model setFixedPulserRateDelay:aValue];
+}
+- (IBAction) openPeddlerDialog: (id) sender
+{
+    NSLog(@"peddler\n");
+    if(!peddler) {
+        peddler = [[PeddlerController alloc]init];
+    }
+    [peddler showWindow:sender];
 }
 
 - (IBAction) standardFindTriggerZeroes:(id) sender 
