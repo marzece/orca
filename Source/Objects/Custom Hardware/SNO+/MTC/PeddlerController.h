@@ -7,7 +7,10 @@
 //
 
 #import "OrcaObjectController.h"
+#import "ORMTCModel.h"
 
-@interface PeddlerController : OrcaObjectController
-
+@interface PeddlerController : OrcaObjectController {
+    ORMTCModel *mtc;
+}
+-(IBAction)FirePeds:(id)sender;
 @end

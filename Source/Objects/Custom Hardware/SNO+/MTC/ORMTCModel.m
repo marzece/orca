@@ -202,7 +202,7 @@ resetFifoOnStart = _resetFifoOnStart;
 
 /* #define these variables for now. Eventually we need to add fields
  * to the GUI, but Javi is working on the SNOPModel now */
-#define MTC_HOST @"sbc.sp.snolab.ca"
+#define MTC_HOST @"localhost"
 #define MTC_PORT 4001
 
 
@@ -1515,9 +1515,9 @@ resetFifoOnStart = _resetFifoOnStart;
 
 - (void) setThePulserRate:(float) pulserRate
 {
-	@try {
+    NSLog(@"mtc: pulser rate set to %.2f Hz\n", pulserRate);
+    @try {
         [mtc okCommand:"set_pulser_freq %f", pulserRate];
-		NSLog(@"mtc: pulser rate set to %.2f Hz\n", pulserRate);			
 	}
 	@catch(NSException* localException) {
 		NSLog(@"Could not set GT Pusler rate!\n");			
@@ -1917,7 +1917,7 @@ resetFifoOnStart = _resetFifoOnStart;
 
 - (void) loadSet:(NSString*)filePath
 {	
-	[self setMtcDataBase:[NSMutableDictionary dictionaryWithContentsOfFile: filePath]];
+    [self setMtcDataBase:[NSMutableDictionary dictionaryWithContentsOfFile: filePath]];
 	[self setLastFileLoaded:filePath];
 }
 
