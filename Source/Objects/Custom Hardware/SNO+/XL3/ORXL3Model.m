@@ -1623,29 +1623,29 @@ void SwapLongBlock(void* p, int32_t n)
      *    to the sequencer should only happen between runs.
      *
      * Returns -1 on error, 0 on success. */
-    uint32_t address, value;
+
+    char payload[XL3_PAYLOAD_SIZE];
+    memset(payload, 0, XL3_PAYLOAD_SIZE);
+
+    SetSequencerArgs* data = (SetSequencerArgs*) payload;
+    data->slot = (uint32_t) slot;
+    data->channelMask = mask;
+    SetSequencerResults* results = (SetSequencerResults*)payload;
+
+    if ([xl3Link needToSwap]) {
+        SwapLongBlock(data, sizeof(SetSequencerArgs)/4);
+    }
 
     @try {
-        value = 0xffffffff;
-        address = FEC_SEL * slot | 0x90 | WRITE_REG; //CMOS CHIP DIS
-        [xl3Link sendCommand:0UL toAddress:address withData:&value];
-        
-        value = 0x2;
-        address = FEC_SEL * slot | 0x20 | WRITE_REG; //FEC CSR
-        [xl3Link sendCommand:0UL toAddress:address withData:&value];
+        [[self xl3Link] sendCommand:SET_SEQUENCER_ID withPayload:payload expectResponse:YES];
+    }
+    @catch (NSException *exception) {
+        NSLog(@"%@ error sending SET SEQUENCER command.\n",[[self xl3Link] crateName]);
+        @throw exception;
+    }
 
-        value = 0x0;
-        [xl3Link sendCommand:0UL toAddress:address withData:&value];
-
-        value = [self crateNumber] << 11;
-        [xl3Link sendCommand:0UL toAddress:address withData:&value];
-
-        value = mask;
-        address = FEC_SEL * slot | 0x90 | WRITE_REG; //CMOS CHIP DIS
-        [xl3Link sendCommand:0UL toAddress:address withData:&value];
-    } @catch (NSException* e) {
-        NSLog(@"%@ sequencer update failed; error: %@ reason: %@\n",
-              [[self xl3Link] crateName], [e name], [e reason]);
+    if ([xl3Link needToSwap]) {
+        results->errors = swapLong(results->errors);
         return -1;
     }
 
