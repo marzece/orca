@@ -1628,12 +1628,12 @@ void SwapLongBlock(void* p, int32_t n)
     memset(payload, 0, XL3_PAYLOAD_SIZE);
 
     SetSequencerArgs* data = (SetSequencerArgs*) payload;
-    data->slot = (uint32_t) slot;
-    data->channelMask = mask;
+
     SetSequencerResults* results = (SetSequencerResults*)payload;
 
     if ([xl3Link needToSwap]) {
-        SwapLongBlock(data, sizeof(SetSequencerArgs)/4);
+        data->slot = htonl((uint32_t) slot);
+        data->channelMask = htonl(mask);
     }
 
     @try {
