@@ -1613,16 +1613,8 @@ void SwapLongBlock(void* p, int32_t n)
     
 - (int) setSequencerMask: (uint32_t) mask forSlot: (int) slot
 {
-    /* Make sure the XL3 is in INIT_MODE before calling this function.
-     *
-     * There is a shift report from October 2012 that says:
-     *
-     *    It appears that writing to the sequencer registers will corrupt
-     *    the data, need to clear it by writing to the FEC csr afterwards
-     *    and then rewriting the crate address to the FEC csr. So writing
-     *    to the sequencer should only happen between runs.
-     *
-     * Returns -1 on error, 0 on success. */
+     /* Returns -1 on error, 0 on success.
+      Sets the sequencer mask for a single FEC */
 
     char payload[XL3_PAYLOAD_SIZE];
     memset(payload, 0, XL3_PAYLOAD_SIZE);
