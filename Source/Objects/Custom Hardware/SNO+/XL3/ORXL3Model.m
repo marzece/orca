@@ -1824,7 +1824,7 @@ void SwapLongBlock(void* p, int32_t n)
         for (slot = 0; slot < 16; slot++) {
             if ((slotMask & (1 << slot)) == 0) continue;
             
-            [self setSequencerMask: mbs[slot].disableMask forSlot:slot];
+            [self setSequencerMask: ~(mbs[slot].disableMask) forSlot:slot];
         }
     }
 
