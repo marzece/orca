@@ -1623,21 +1623,20 @@ void SwapLongBlock(void* p, int32_t n)
 
     SetSequencerResults* results = (SetSequencerResults*)payload;
 
-    if ([xl3Link needToSwap]) {
-        data->slot = htonl((uint32_t) slot);
-        data->channelMask = htonl(mask);
-    }
+
+    data->slot = htonl((uint32_t) slot);
+    data->channelMask = htonl(mask);
 
     @try {
         [[self xl3Link] sendCommand:SET_SEQUENCER_ID withPayload:payload expectResponse:YES];
     }
     @catch (NSException *exception) {
-        NSLog(@"%@ error sending SET SEQUENCER command.\n",[[self xl3Link] crateName]);
-        @throw exception;
+        NSLogColor([NSColor redColor],@"%@ error sending SET SEQUENCER command.\n",[[self xl3Link] crateName]);
+        return -1;
     }
 
-    if ([xl3Link needToSwap]) {
-        results->errors = swapLong(results->errors);
+    if(htonl(results->errors)) {
+        NSLogColor([NSColor redColor],@"XL3 error occured while setting sequencer");
         return -1;
     }
 
