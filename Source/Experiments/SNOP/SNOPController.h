@@ -21,6 +21,7 @@
 #import "ORExperimentController.h"
 #import "SNOPDetectorView.h"
 #import "StopLightView.h"
+#import <WebKit/WebKit.h>
 
 @class ORColorScale;
 @class ORSegmentGroup;
@@ -50,7 +51,7 @@
     IBOutlet NSTextField *runTypeWordField;
 
     //Quick links
-    
+    IBOutlet WebView* det_state_view;
     //Danger zone
     IBOutlet NSButton *panicDownButton;
     IBOutlet NSTextField *detectorHVStatus;

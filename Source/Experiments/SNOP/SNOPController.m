@@ -192,6 +192,7 @@ smellieRunFile;
     [self refreshStandardRuns];
     [self updateSettings:nil];
     [super awakeFromNib];
+    [[det_state_view mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://snopl.us/monitoring/state"] ] ];
     [self performSelector:@selector(updateWindow)withObject:self afterDelay:0.1];
 }
 
