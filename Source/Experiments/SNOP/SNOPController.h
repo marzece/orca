@@ -19,15 +19,12 @@
 //-------------------------------------------------------------
 
 #import "ORExperimentController.h"
-#import "SNOPDetectorView.h"
 #import "StopLightView.h"
 
 @class ORColorScale;
 @class ORSegmentGroup;
 
 @interface SNOPController : ORExperimentController {
-	IBOutlet NSTextField* detectorTitle;
-	IBOutlet NSPopUpButton*	viewTypePU;
     IBOutlet NSView *snopView;
     
     NSView *blankView;
@@ -150,7 +147,6 @@
 - (void) updateSettings: (NSNotification *) aNote;
 
 #pragma mark ¥¥¥Actions
-- (IBAction) viewTypeAction:(id)sender;
 
 - (IBAction) eStop:(id)sender;
 
@@ -185,8 +181,6 @@
 - (IBAction)updatexl3Mode:(id)sender;
 
 #pragma mark ¥¥¥Details Interface Management
-- (void) setDetectorTitle;
-- (void) viewTypeChanged:(NSNotification*)aNote;
 - (void) tabView:(NSTabView*)aTabView didSelectTabViewItem:(NSTabViewItem*)tabViewItem;
 -(void) windowDidLoad;
 -(void) fetchRunMaskSettings;
@@ -194,8 +188,6 @@
 - (IBAction) runsLockAction:(id)sender;
 
 @end
-@interface ORDetectorView (SNO)
-- (void) setViewType:(int)aState;
-@end
+
 
 extern NSString* ORSNOPRequestHVStatus;

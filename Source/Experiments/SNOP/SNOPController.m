@@ -223,11 +223,7 @@ smellieRunFile;
     
     [super registerNotificationObservers];
     
-    [notifyCenter addObserver : self
-                     selector : @selector(viewTypeChanged:)
-                         name : ORSNOPModelViewTypeChanged
-                        object: model];
-    
+
     [notifyCenter addObserver : self
                      selector : @selector(dbOrcaDBIPChanged:)
                          name : ORSNOPModelOrcaDBIPAddressChanged
@@ -308,7 +304,6 @@ smellieRunFile;
 - (void) updateWindow
 {
     [super updateWindow];
-    [self viewTypeChanged:nil];
     [self hvStatusChanged:nil];
     [self dbOrcaDBIPChanged:nil];
     [self dbDebugDBIPChanged:nil];
@@ -562,12 +557,6 @@ smellieRunFile;
     return s;
 }
 
-- (void) viewTypeChanged:(NSNotification*)aNote
-{
-    [viewTypePU selectItemAtIndex:[model viewType]];
-    [detectorView setViewType:[model viewType]];
-    [detectorView makeAllSegments];
-}
 
 - (void) dbOrcaDBIPChanged:(NSNotification*)aNote
 {
@@ -721,11 +710,6 @@ smellieRunFile;
 }
 
 #pragma mark ¥¥¥Interface Management
-- (IBAction) viewTypeAction:(id)sender
-{
-    [model setViewType:[sender indexOfSelectedItem]];
-}
-
 - (IBAction) orcaDBIPAddressAction:(id)sender {
     [model setOrcaDBIPAddress:[sender stringValue]];
 }
@@ -862,21 +846,7 @@ smellieRunFile;
     [[NSNotificationCenter defaultCenter] postNotificationName:ORSNOPRequestHVStatus object:self];
 }
 
-- (void) specialUpdate:(NSNotification*)aNote
-{
-    [super specialUpdate:aNote];
-    [detectorView makeAllSegments];
-}
 
-- (void) setDetectorTitle
-{
-    switch([model displayType]){
-        case kDisplayRates:		[detectorTitle setStringValue:@"Detector Rate"];	break;
-        case kDisplayThresholds:	[detectorTitle setStringValue:@"Thresholds"];		break;
-        case kDisplayTotalCounts:	[detectorTitle setStringValue:@"Total Counts"];		break;
-        default: break;
-    }
-}
 
 #pragma mark ¥¥¥Details Interface Management
 - (void) detailsLockChanged:(NSNotification*)aNotification

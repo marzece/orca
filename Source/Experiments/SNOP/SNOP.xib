@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="13F1077" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="8191" systemVersion="14F1021" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
+        <development version="6300" identifier="xcode"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8191"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SNOPController">
@@ -10,26 +11,17 @@
                 <outlet property="ECApatternPopUpButton" destination="i3g-ic-RZW" id="myq-xV-QPC"/>
                 <outlet property="ECAtypePopUpButton" destination="hkE-er-aF6" id="uJb-NP-gK3"/>
                 <outlet property="TSlopePatternTextField" destination="Ino-yi-GBZ" id="thL-6S-vrq"/>
-                <outlet property="captureDateField" destination="423" id="424"/>
-                <outlet property="captureStateButton" destination="383" id="416"/>
-                <outlet property="cardCheckView" destination="1000" id="1002"/>
-                <outlet property="clearButton" destination="2609" id="2612"/>
                 <outlet property="dataHost" destination="UWf-rc-B5V" id="XsF-fQ-J4g"/>
                 <outlet property="dataPort" destination="iRb-mE-Azg" id="q3z-dm-lJm"/>
                 <outlet property="debugDBIPAddressPU" destination="2730" id="2967"/>
                 <outlet property="detectorHVStatus" destination="fHi-qS-g5A" id="oT8-lw-7La"/>
                 <outlet property="detectorLockButton" destination="368" id="370"/>
-                <outlet property="detectorTitle" destination="1189" id="1190"/>
-                <outlet property="detectorView" destination="1151" id="1168"/>
-                <outlet property="displayTypePU" destination="2421" id="2434"/>
                 <outlet property="eStopButton" destination="3990" id="3995"/>
                 <outlet property="elapsedTimeField" destination="3771" id="ZCv-hI-YYv"/>
                 <outlet property="emergyencyStopEnabled" destination="3988" id="3992"/>
                 <outlet property="globalRunTypesMatrix" destination="3935" id="3978"/>
                 <outlet property="globalxl3Mode" destination="4194" id="4216"/>
-                <outlet property="hardwareCheckView" destination="822" id="823"/>
                 <outlet property="hvStatusMatrix" destination="2830" id="2912"/>
-                <outlet property="ignoreHWChecksCB" destination="2614" id="2616"/>
                 <outlet property="lightBoardView" destination="URf-Um-n84" id="fpR-9q-LuL"/>
                 <outlet property="loadedSmellieApproxTimeLabel" destination="3570" id="3597"/>
                 <outlet property="loadedSmellieFibresLabel" destination="3574" id="3599"/>
@@ -47,18 +39,12 @@
                 <outlet property="orcaDBIPAddressPU" destination="2683" id="2962"/>
                 <outlet property="panicDownButton" destination="zmA-F4-wTd" id="37F-oN-VJj"/>
                 <outlet property="pollingStatus" destination="3998" id="4000"/>
-                <outlet property="primaryColorAxisLogCB" destination="1149" id="1225"/>
-                <outlet property="primaryRateField" destination="867" id="1227"/>
-                <outlet property="rateLogCB" destination="159" id="164"/>
-                <outlet property="ratePlot" destination="2620" id="2626"/>
                 <outlet property="repeatRunCB" destination="1339" id="1354"/>
-                <outlet property="reportStateButton" destination="418" id="422"/>
                 <outlet property="runBar" destination="MBu-zu-x36" id="iTV-aT-8hr"/>
                 <outlet property="runNumberField" destination="3752" id="NlG-fq-pyu"/>
                 <outlet property="runStatusField" destination="3733" id="LhC-Ec-9HL"/>
                 <outlet property="runStatusTextField" destination="Np3-DI-Iif" id="b6k-lH-Hln"/>
                 <outlet property="runsLockButton" destination="URx-nh-GMP" id="E2u-gI-0d3"/>
-                <outlet property="selectionStringTextView" destination="376" id="949"/>
                 <outlet property="smellieBuildCustomRun" destination="3524" id="3586"/>
                 <outlet property="smellieChangeConfiguration" destination="3531" id="3587"/>
                 <outlet property="smellieEmergencyStop" destination="3554" id="3609"/>
@@ -84,7 +70,6 @@
                 <outlet property="timeLimitField" destination="1342" id="1353"/>
                 <outlet property="timeStartedField" destination="3770" id="rbE-Hw-cDc"/>
                 <outlet property="timedRunCB" destination="1344" id="1352"/>
-                <outlet property="viewTypePU" destination="2304" id="2310"/>
                 <outlet property="window" destination="5" id="950"/>
                 <outlet property="xl3Host" destination="AIC-b9-zSX" id="DnO-GW-xgy"/>
                 <outlet property="xl3Port" destination="hDG-wd-Xw9" id="1iH-de-4g5"/>
@@ -2659,73 +2644,6 @@
                                     <rect key="frame" x="10" y="25" width="773" height="635"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <customView id="2645" customClass="ORAxis">
-                                            <rect key="frame" x="17" y="263" width="36" height="275"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <connections>
-                                                <outlet property="viewToScale" destination="1151" id="2649"/>
-                                            </connections>
-                                        </customView>
-                                        <customView id="2646" customClass="ORColorScale">
-                                            <rect key="frame" x="54" y="265" width="13" height="267"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <connections>
-                                                <outlet property="colorAxis" destination="2645" id="2647"/>
-                                            </connections>
-                                        </customView>
-                                        <box title="Total Rates" boxType="secondary" borderType="bezel" id="160">
-                                            <rect key="frame" x="4" y="42" width="394" height="160"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <view key="contentView">
-                                                <rect key="frame" x="3" y="3" width="388" height="143"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                <subviews>
-                                                    <button id="159">
-                                                        <rect key="frame" x="320" y="90" width="54" height="18"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
-                                                        <buttonCell key="cell" type="check" title="Log" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="2523">
-                                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                            <font key="font" metaFont="smallSystem"/>
-                                                        </buttonCell>
-                                                    </button>
-                                                    <textField verticalHuggingPriority="750" id="348">
-                                                        <rect key="frame" x="313" y="62" width="62" height="17"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
-                                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Total Rate" id="2524">
-                                                            <font key="font" metaFont="miniSystem"/>
-                                                            <color key="textColor" red="1" green="0.033489466000000002" blue="0.066050708" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                        </textFieldCell>
-                                                    </textField>
-                                                    <textField verticalHuggingPriority="750" id="867">
-                                                        <rect key="frame" x="313" y="53" width="62" height="14"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
-                                                        <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="right" title="-100.23" id="2525">
-                                                            <numberFormatter key="formatter" formatterBehavior="10_0" positiveFormat="0.00" negativeFormat="-0.00" hasThousandSeparators="NO" thousandSeparator="," id="1249">
-                                                                <attributedString key="attributedStringForZero">
-                                                                    <fragment content="0.00"/>
-                                                                </attributedString>
-                                                                <decimal key="minimum" value="NaN"/>
-                                                                <decimal key="maximum" value="NaN"/>
-                                                            </numberFormatter>
-                                                            <font key="font" metaFont="smallSystem"/>
-                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                        </textFieldCell>
-                                                    </textField>
-                                                    <customView id="2620" customClass="ORCompositeTimeLineView">
-                                                        <rect key="frame" x="6" y="5" width="302" height="128"/>
-                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                                                        <connections>
-                                                            <outlet property="delegate" destination="-2" id="2625"/>
-                                                        </connections>
-                                                    </customView>
-                                                </subviews>
-                                            </view>
-                                            <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                                            <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                            <font key="titleFont" metaFont="label"/>
-                                        </box>
                                         <button id="368">
                                             <rect key="frame" x="7" y="-10" width="33" height="53"/>
                                             <autoresizingMask key="autoresizingMask"/>
@@ -2737,237 +2655,6 @@
                                                 <action selector="detectorLockAction:" target="-2" id="373"/>
                                             </connections>
                                         </button>
-                                        <box title="Config Checks" id="380">
-                                            <rect key="frame" x="394" y="42" width="190" height="177"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <view key="contentView">
-                                                <rect key="frame" x="2" y="2" width="186" height="161"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                <subviews>
-                                                    <button toolTip="writes the current state to an internal file" verticalHuggingPriority="750" id="383">
-                                                        <rect key="frame" x="4" y="65" width="146" height="28"/>
-                                                        <autoresizingMask key="autoresizingMask"/>
-                                                        <buttonCell key="cell" type="push" title="Capture Current State" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" inset="2" id="2530">
-                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                            <font key="font" metaFont="smallSystem"/>
-                                                        </buttonCell>
-                                                        <connections>
-                                                            <action selector="captureStateAction:" target="-2" id="417"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button toolTip="Report diffs between last captured and current states" verticalHuggingPriority="750" id="418">
-                                                        <rect key="frame" x="4" y="19" width="146" height="28"/>
-                                                        <autoresizingMask key="autoresizingMask"/>
-                                                        <buttonCell key="cell" type="push" title="Test/Print Summary" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" inset="2" id="2531">
-                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                            <font key="font" metaFont="smallSystem"/>
-                                                        </buttonCell>
-                                                        <connections>
-                                                            <action selector="reportConfigAction:" target="-2" id="421"/>
-                                                        </connections>
-                                                    </button>
-                                                    <textField verticalHuggingPriority="750" id="423">
-                                                        <rect key="frame" x="43" y="51" width="114" height="13"/>
-                                                        <autoresizingMask key="autoresizingMask"/>
-                                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="09/30/04 16:11:55" id="2532">
-                                                            <dateFormatter key="formatter" formatterBehavior="pre10_4" dateFormat="%m/%d/%y %H:%M:%S" id="425"/>
-                                                            <font key="font" metaFont="label"/>
-                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                        </textFieldCell>
-                                                    </textField>
-                                                    <textField verticalHuggingPriority="750" id="426">
-                                                        <rect key="frame" x="14" y="38" width="27" height="26"/>
-                                                        <autoresizingMask key="autoresizingMask"/>
-                                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" id="2533">
-                                                            <font key="font" metaFont="label"/>
-                                                            <string key="title">Last:
-</string>
-                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                        </textFieldCell>
-                                                    </textField>
-                                                    <textField verticalHuggingPriority="750" id="821">
-                                                        <rect key="frame" x="26" y="117" width="131" height="13"/>
-                                                        <autoresizingMask key="autoresizingMask"/>
-                                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Hardware Configuration" id="2534">
-                                                            <font key="font" metaFont="label"/>
-                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                        </textFieldCell>
-                                                    </textField>
-                                                    <customView id="822" customClass="BiStateView">
-                                                        <rect key="frame" x="10" y="116" width="16" height="16"/>
-                                                        <autoresizingMask key="autoresizingMask"/>
-                                                    </customView>
-                                                    <textField verticalHuggingPriority="750" id="999">
-                                                        <rect key="frame" x="26" y="84" width="60" height="26"/>
-                                                        <autoresizingMask key="autoresizingMask"/>
-                                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" id="2535">
-                                                            <font key="font" metaFont="label"/>
-                                                            <string key="title">Card Check
-</string>
-                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                        </textFieldCell>
-                                                    </textField>
-                                                    <customView id="1000" customClass="BiStateView">
-                                                        <rect key="frame" x="10" y="96" width="16" height="16"/>
-                                                        <autoresizingMask key="autoresizingMask"/>
-                                                    </customView>
-                                                    <button toolTip="Don't run checks at the start of a run" id="2614">
-                                                        <rect key="frame" x="8" y="138" width="119" height="18"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <buttonCell key="cell" type="check" title="Skip HW Checks" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="2615">
-                                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                            <font key="font" metaFont="smallSystem"/>
-                                                        </buttonCell>
-                                                        <connections>
-                                                            <action selector="ignoreHWChecksAction:" target="-2" id="2617"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                            </view>
-                                            <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                                            <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                            <font key="titleFont" metaFont="label"/>
-                                        </box>
-                                        <textField verticalHuggingPriority="750" id="377">
-                                            <rect key="frame" x="404" y="539" width="173" height="13"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Selected Segment Info" id="2529">
-                                                <font key="font" metaFont="label"/>
-                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                        <scrollView autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="375">
-                                            <rect key="frame" x="398" y="387" width="185" height="151"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <clipView key="contentView" id="6ha-Br-tXK">
-                                                <rect key="frame" x="1" y="1" width="183" height="149"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                <subviews>
-                                                    <textView editable="NO" importsGraphics="NO" richText="NO" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" quoteSubstitution="YES" dashSubstitution="YES" textReplacement="YES" spellingCorrection="YES" smartInsertDelete="YES" id="376">
-                                                        <rect key="frame" x="0.0" y="0.0" width="183" height="149"/>
-                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                        <color key="backgroundColor" red="0.88617849000000004" green="0.97623252999999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <size key="minSize" width="183" height="149"/>
-                                                        <size key="maxSize" width="368" height="10000000"/>
-                                                        <color key="insertionPointColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <size key="minSize" width="183" height="149"/>
-                                                        <size key="maxSize" width="368" height="10000000"/>
-                                                    </textView>
-                                                </subviews>
-                                                <color key="backgroundColor" red="0.88617849000000004" green="0.97623252999999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            </clipView>
-                                            <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" controlSize="small" horizontal="YES" id="2593">
-                                                <rect key="frame" x="-100" y="-100" width="87" height="18"/>
-                                                <autoresizingMask key="autoresizingMask"/>
-                                            </scroller>
-                                            <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" controlSize="small" horizontal="NO" id="2592">
-                                                <rect key="frame" x="-22" y="1" width="11" height="93"/>
-                                                <autoresizingMask key="autoresizingMask"/>
-                                            </scroller>
-                                        </scrollView>
-                                        <button id="1149">
-                                            <rect key="frame" x="22" y="234" width="47" height="23"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="check" title="Log" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="2538">
-                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="smallSystem"/>
-                                            </buttonCell>
-                                            <connections>
-                                                <action selector="setLogScale:" target="2645" id="2650"/>
-                                            </connections>
-                                        </button>
-                                        <customView id="1151" customClass="SNOPDetectorView">
-                                            <rect key="frame" x="68" y="236" width="313" height="296"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <connections>
-                                                <outlet property="focalPlaneColorScale" destination="2646" id="2648"/>
-                                            </connections>
-                                        </customView>
-                                        <textField verticalHuggingPriority="750" id="1189">
-                                            <rect key="frame" x="187" y="490" width="59" height="70"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" id="2540">
-                                                <font key="font" size="18" name="Papyrus"/>
-                                                <string key="title">Values
-</string>
-                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                        <popUpButton verticalHuggingPriority="750" id="2304">
-                                            <rect key="frame" x="72" y="214" width="107" height="15"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <popUpButtonCell key="cell" type="push" title="Detector View" bezelStyle="rounded" alignment="left" controlSize="mini" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="2307" id="2552">
-                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="miniSystem"/>
-                                                <menu key="menu" title="OtherViews" id="2306">
-                                                    <items>
-                                                        <menuItem title="Detector View" state="on" id="2307"/>
-                                                        <menuItem title="Crate View" id="2308"/>
-                                                    </items>
-                                                </menu>
-                                            </popUpButtonCell>
-                                            <connections>
-                                                <action selector="viewTypeAction:" target="-2" id="2311"/>
-                                            </connections>
-                                        </popUpButton>
-                                        <popUpButton verticalHuggingPriority="750" id="2421">
-                                            <rect key="frame" x="203" y="214" width="107" height="15"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <popUpButtonCell key="cell" type="push" title="Total Counts" bezelStyle="rounded" alignment="left" controlSize="mini" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="4" imageScaling="proportionallyDown" inset="2" selectedItem="2606" id="2553">
-                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="miniSystem"/>
-                                                <menu key="menu" title="OtherViews" id="2423">
-                                                    <items>
-                                                        <menuItem title="Rates" tag="1" id="2424"/>
-                                                        <menuItem title="Thresholds" tag="2" id="2425"/>
-                                                        <menuItem title="Total Counts" state="on" tag="4" id="2606"/>
-                                                    </items>
-                                                </menu>
-                                            </popUpButtonCell>
-                                            <connections>
-                                                <action selector="displayTypeAction:" target="-2" id="2435"/>
-                                            </connections>
-                                        </popUpButton>
-                                        <textField verticalHuggingPriority="750" id="2520">
-                                            <rect key="frame" x="178" y="214" width="26" height="13"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="of" id="2554">
-                                                <font key="font" metaFont="label"/>
-                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                        <button toolTip="writes the current state to an internal file" verticalHuggingPriority="750" id="2609">
-                                            <rect key="frame" x="318" y="213" width="47" height="16"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="push" title="Clear" bezelStyle="rounded" alignment="center" controlSize="mini" borderStyle="border" inset="2" id="2610">
-                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="miniSystem"/>
-                                            </buttonCell>
-                                            <connections>
-                                                <action selector="clearAction:" target="-2" id="2613"/>
-                                            </connections>
-                                        </button>
-                                        <box verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" id="2618">
-                                            <rect key="frame" x="10" y="203" width="388" height="5"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                                            <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                            <font key="titleFont" metaFont="system"/>
-                                        </box>
-                                        <box horizontalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" id="2619">
-                                            <rect key="frame" x="395" y="205" width="5" height="341"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                                            <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                            <font key="titleFont" metaFont="system"/>
-                                        </box>
                                     </subviews>
                                 </view>
                             </tabViewItem>
@@ -3612,9 +3299,6 @@
         <numberFormatter formatterBehavior="default10_4" usesGroupingSeparator="NO" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="smT-jd-CZZ">
             <real key="minimum" value="1024"/>
             <real key="maximum" value="65535"/>
-            <metadata>
-                <real key="inspectorSampleValue" value="1"/>
-            </metadata>
         </numberFormatter>
     </objects>
     <resources>
