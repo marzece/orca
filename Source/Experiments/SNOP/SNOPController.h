@@ -20,6 +20,7 @@
 
 #import "ORExperimentController.h"
 #import "StopLightView.h"
+#import <WebKit/WebKit.h>
 
 @class ORColorScale;
 @class ORSegmentGroup;
@@ -122,6 +123,9 @@
     IBOutlet NSPopUpButton *ECAtypePopUpButton;
     IBOutlet NSTextField *TSlopePatternTextField;
     IBOutlet NSTextField *subTimeTextField;
+    
+    //Detector State
+    IBOutlet WebView* detectorState;
 }
 
 @property (nonatomic,retain) NSImage* runStopImg;

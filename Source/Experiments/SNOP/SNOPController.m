@@ -865,36 +865,31 @@ smellieRunFile;
 {
     
     if([tabView indexOfTabViewItem:tabViewItem] == 0){
-        [[self window] setContentView:blankView];
-        [self resizeWindowToSize:detectorSize];
-        [[self window] setContentView:snopView];
-    }
-    else if([tabView indexOfTabViewItem:tabViewItem] == 5){
+        //StandardRuns
         [[self window] setContentView:blankView];
         [self resizeWindowToSize:runsSize];
         [[self window] setContentView:snopView];
     }
+    else if([tabView indexOfTabViewItem:tabViewItem] == 1){
+        //HV
+        [self resizeWindowToSize:hvMasterSize];
+        [[self window] setContentView:blankView];
+        [[self window] setContentView:snopView];
+    }
     else if([tabView indexOfTabViewItem:tabViewItem] == 2){
+        //State
+        [[detectorState mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://snopl.us/monitoring/state"] ] ];
+        [[self window] setContentView:blankView];
+        [self resizeWindowToSize:detectorSize];
+        [[self window] setContentView:snopView];
+    }
+    else if([tabView indexOfTabViewItem:tabViewItem] == 3){
+        //Settings
         [[self window] setContentView:blankView];
         [self resizeWindowToSize:detailsSize];
         [[self window] setContentView:snopView];
     }
-    else if([tabView indexOfTabViewItem:tabViewItem] == 3){
-        [[self window] setContentView:blankView];
-        [self resizeWindowToSize:focalPlaneSize];
-        [[self window] setContentView:snopView];
-    }
-    else if([tabView indexOfTabViewItem:tabViewItem] == 4){
-        [[self window] setContentView:blankView];
-        [self resizeWindowToSize:couchDBSize];
-        [[self window] setContentView:snopView];
-    }
-    else if([tabView indexOfTabViewItem:tabViewItem] == 5){
-        [[self window] setContentView:blankView];
-        [self resizeWindowToSize:hvMasterSize];
-        [[self window] setContentView:snopView];
-    }
-    
+
     int index = [tabView indexOfTabViewItem:tabViewItem];
     [[NSUserDefaults standardUserDefaults] setInteger:index forKey:@"orca.SNOPController.selectedtab"];
 }

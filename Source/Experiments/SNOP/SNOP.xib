@@ -4,6 +4,7 @@
         <deployment identifier="macosx"/>
         <development version="6300" identifier="xcode"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8191"/>
+        <plugIn identifier="com.apple.WebKitIBPlugin" version="8191"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SNOPController">
@@ -16,6 +17,7 @@
                 <outlet property="debugDBIPAddressPU" destination="2730" id="2967"/>
                 <outlet property="detectorHVStatus" destination="fHi-qS-g5A" id="oT8-lw-7La"/>
                 <outlet property="detectorLockButton" destination="368" id="370"/>
+                <outlet property="detectorState" destination="rCO-DX-2zv" id="Rep-KK-iKb"/>
                 <outlet property="eStopButton" destination="3990" id="3995"/>
                 <outlet property="elapsedTimeField" destination="3771" id="ZCv-hI-YYv"/>
                 <outlet property="emergyencyStopEnabled" destination="3988" id="3992"/>
@@ -2655,6 +2657,13 @@
                                                 <action selector="detectorLockAction:" target="-2" id="373"/>
                                             </connections>
                                         </button>
+                                        <webView id="rCO-DX-2zv">
+                                            <rect key="frame" x="33" y="51" width="708" height="573"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <webPreferences key="preferences" defaultFontSize="16" defaultFixedFontSize="13" minimumFontSize="0">
+                                                <nil key="identifier"/>
+                                            </webPreferences>
+                                        </webView>
                                     </subviews>
                                 </view>
                             </tabViewItem>
