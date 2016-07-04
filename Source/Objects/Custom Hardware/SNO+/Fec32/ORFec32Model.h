@@ -360,7 +360,7 @@ typedef struct Fec32CmosShiftReg{
 - (void) setFec32RegisterBits:(unsigned long) aRegister bitMask:(unsigned long) bits_to_set;
 - (void) clearFec32RegisterBits:(unsigned long) aRegister bitMask:(unsigned long) bits_to_clear;
 - (void) readVoltages;
-- (void) parseVoltages:(VMonResults*)result;
+- (BOOL) parseVoltages:(VMonResults*)result;
 - (unsigned long) readFromFec32Register:(unsigned long) Register;
 - (void) readBoardIds;
 - (void) boardIDOperation:(unsigned long)theDataValue boardSelectValue:(unsigned long) boardSelectVal beginIndex:(short) beginIndex;

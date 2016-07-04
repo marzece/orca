@@ -3951,7 +3951,7 @@ err:
     memset(result, 0, 16*sizeof(VMonResults));
     unsigned char slot;
     for (slot=0; slot<16; slot++) {
-        if ((msk >> slot) & 0x1) {
+        if ((msk >> slot) & 0x1) { //If this slot is part of the VMon Mask
 
             @try {
                 [self readVMONForSlot:slot voltages:&result[slot]];
@@ -3970,9 +3970,13 @@ err:
             }
 
             //update FEC
+            BOOL inRange[16][kNumFecMonitorAdcs];
             for (id aFEC in [[self guardian] orcaObjects]) {
                 if (16 - [aFEC slot] == slot) { // do not use stationNumber here
                     [aFEC parseVoltages:&result[slot]];
+                    for(int thisADC=0;thisADC < kNumFecMonitorAdcs; thisADC++) {
+                        inRange[slot][thisADC] = [aFEC adcVoltageStatus:thisADC] != kFecMonitorInRange;
+
                 }
             }
             
@@ -3997,13 +4001,16 @@ err:
 
     if (!wasPollingXl3 || isPollingVerbose) {
      
-        char* vlt_a[] = {" -24V Sup:", " -15V Sup:", "  VEE Sup:", "-3.3V Sup:", "-2.0V Sup:",
+        //vlt_a
+        char* vlt_label[] = {" -24V Sup:", " -15V Sup:", "  VEE Sup:", "-3.3V Sup:", "-2.0V Sup:",
             " 3.3V Sup:", " 4.0V Sup:", "  VCC Sup:", " 6.5V Sup:", " 8.0V Sup:", "  15V Sup:",
             "  24V Sup:", "-2.0V Ref:", "-1.0V Ref:", " 0.8V Ref:", " 1.0V Ref:", " 4.0V Ref:",
             " 5.0V Ref:", "    Temp.:", "  Cal DAC:", "  HV Curr:"};
         
-        char* vlt_b[] = {" V", " V", " V", " V", " V", " V", " V", " V", " V", " V",
+        //vlt_b
+        char* vlt_unit[] = {" V", " V", " V", " V", " V", " V", " V", " V", " V", " V",
             " V", " V", " V", " V", " V", " V", " V", " V", " degC", " V", " mA"};
+        
         
         NSMutableString* msg = [NSMutableString stringWithFormat:@"%@ FEC voltages:\n", [[self xl3Link] crateName]];
         
@@ -4050,7 +4057,7 @@ err:
             }
             [msg appendFormat:@"\n"];
             for (vlt = 0; vlt < 21; vlt++) {
-                [msg appendFormat:@"%s", vlt_a[vlt]];
+                [msg appendFormat:@"%s", vlt_label[vlt]];
                 for (sl = 0; sl < slotNum; sl++) {
                     [msg appendFormat:@"%8.2f ", result[slot_a[sl]].voltages[vlt]];
                 }

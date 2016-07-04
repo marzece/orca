@@ -1050,13 +1050,18 @@ static unsigned long cratePedMask;  // crates that need their pedestals set
     }	
 }
 
--(void) parseVoltages:(VMonResults*)result;
+
+//Returns true if a voltage in 'results' is out of range and wasn't before. Otherwise returns false
+-(BOOL) parseVoltages:(VMonResults*)result;
 {
     //bool statusChanged = false;
     
     //if ([guardian adapterIsXL3]) statusChanged = [self parseVoltagesUsingXL3:result];
-    if ([guardian adapterIsXL3]) [self parseVoltagesUsingXL3:result];
-    else NSLog(@"failed: FEC parse voltages implemented for XL3 only");
+    if ([guardian adapterIsXL3]) {
+        return [self parseVoltagesUsingXL3:result];
+    }
+    NSLog(@"failed: FEC parse voltages implemented for XL3 only");
+    return false;
 }
 
 #pragma mark •••Archival
@@ -2722,7 +2727,6 @@ const short kVoltageADCMaximumAttempts = 10;
         [self setAdcVoltage:whichADC withValue:convertedValue];
         if(fecVoltageAdc[whichADC].check_expected_value){
             float expected = fecVoltageAdc[whichADC].expected_value;
-            //float delta = fabs(expected*[[self xl1] adcAllowedError:whichADC]);
             float delta = fabs(expected * kAllowedFecMonitorError);
             if(fabs(convertedValue-expected) < delta)	new_channel_status = kFecMonitorInRange;
             else										new_channel_status = kFecMonitorOutOfRange;
