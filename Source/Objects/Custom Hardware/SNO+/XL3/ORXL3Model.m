@@ -3946,10 +3946,11 @@ err:
     if (isPollingXl3 || isPollingForced) {
         msk &= aSlotMask;
     }
-
+    BOOL inRange[16][kNumFecMonitorAdcs];
     VMonResults result[16];
     memset(result, 0, 16*sizeof(VMonResults));
     unsigned char slot;
+
     for (slot=0; slot<16; slot++) {
         if ((msk >> slot) & 0x1) { //If this slot is part of the VMon Mask
 
@@ -3970,16 +3971,16 @@ err:
             }
 
             //update FEC
-            BOOL inRange[16][kNumFecMonitorAdcs];
+
             for (id aFEC in [[self guardian] orcaObjects]) {
                 if (16 - [aFEC slot] == slot) { // do not use stationNumber here
                     [aFEC parseVoltages:&result[slot]];
                     for(int thisADC=0;thisADC < kNumFecMonitorAdcs; thisADC++) {
                         inRange[slot][thisADC] = [aFEC adcVoltageStatus:thisADC] != kFecMonitorInRange;
-
+                    }
                 }
             }
-            
+
             //data packet
             const unsigned char packet_length = 3+21+6;
             if (isPollingXl3 && [[ORGlobal sharedGlobal] runInProgress]) {
@@ -4014,6 +4015,9 @@ err:
         
         NSMutableString* msg = [NSMutableString stringWithFormat:@"%@ FEC voltages:\n", [[self xl3Link] crateName]];
         
+        NSMutableArray* OutOfRange_msg = [[NSMutableArray alloc] init];
+        NSMutableArray* Normal_msg = [[NSMutableArray alloc] init];
+
         if (msk < msk_full) {
             [msg appendFormat:@"slots masked out: "];
             unsigned int msk_missing = msk_full & ~msk;
@@ -4059,14 +4063,25 @@ err:
             for (vlt = 0; vlt < 21; vlt++) {
                 [msg appendFormat:@"%s", vlt_label[vlt]];
                 for (sl = 0; sl < slotNum; sl++) {
-                    [msg appendFormat:@"%8.2f ", result[slot_a[sl]].voltages[vlt]];
+                    if(inRange[slot][vlt]) {
+                        [Normal_msg addObject:msg];
+                        msg = [NSMutableString stringWithFormat:@""];
+                        [OutOfRange_msg addObject:[NSString stringWithFormat:@"%8.2f ", result[slot_a[sl]].voltages[vlt]]];
+                    }
+                    else {
+                        [msg appendFormat:@"%8.2f ",result[slot_a[sl]].voltages[vlt]];
+                    }
                 }
-                [msg appendFormat:@"%s\n", vlt_b[vlt]];
+                [msg appendFormat:@"%s\n", vlt_unit[vlt]];
             }
             [msg appendFormat:@"\n"];
         }
-
-        NSLogFont([NSFont userFixedPitchFontOfSize:10], msg);
+        for(int i =0;i<[OutOfRange_msg count];i++)
+        {
+            NSLogFont([NSFont userFixedPitchFontOfSize:10], Normal_msg[i]);
+            NSLogColor([NSColor redColor], OutOfRange_msg[i]);
+        }
+        NSLogFont([NSFont userFixedPitchFontOfSize:10], Normal_msg[[Normal_msg count]-1]);
     }
 }
 
