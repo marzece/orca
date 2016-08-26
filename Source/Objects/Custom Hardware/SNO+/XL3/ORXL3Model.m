@@ -1965,6 +1965,11 @@ err:
     for (slot = 0; slot < 16; slot++) {
         fec = &r->hwareVals[slot];
         fec->mbID = swapShort(fec->mbID);
+        fec->pmticID = swapShort(fec->pmticID);
+
+        //DEBUGGING STATEMENT REMOVE WHEN DEBUGGED
+        NSLogColor([NSColor redColor], @"\n Slot %i PMTIC = 0x%x\n",slot,fec->pmticID);
+
 
         for (i = 0; i < 4; i++) {
             fec->dbID[i] = swapShort(fec->dbID[i]);

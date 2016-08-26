@@ -8,6 +8,7 @@
 typedef struct
 {
   uint16_t mbID;
+  uint16_t pmticID;
   uint16_t dbID[4];
 } FECConfiguration;
 
@@ -46,6 +47,7 @@ typedef struct {
 typedef struct {
   uint16_t mbID; //!< 
   uint16_t dbID[4]; //!<
+  uint16_t pmticID;
   uint8_t vBal[2][32]; //!< 
   uint8_t vThr[32]; //!<
   TDisc tDisc; //!< 
@@ -56,7 +58,7 @@ typedef struct {
   Tr20 tr20; //!< 
   uint16_t sCmos[32]; //!<
   uint32_t  disableMask; //!<
-} MB; //!< all database values for one fec
+} MB; //!< all database values for one slot
 
 typedef struct
 {
