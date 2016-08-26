@@ -47,8 +47,7 @@ typedef struct {
 typedef struct {
   uint16_t mbID; //!< 
   uint16_t dbID[4]; //!<
-  uint16_t pmticID;
-  uint8_t vBal[2][32]; //!< 
+  uint8_t vBal[2][32]; //!<
   uint8_t vThr[32]; //!<
   TDisc tDisc; //!< 
   TCmos tCmos; //!<
@@ -58,11 +57,12 @@ typedef struct {
   Tr20 tr20; //!< 
   uint16_t sCmos[32]; //!<
   uint32_t  disableMask; //!<
-} MB; //!< all database values for one slot
+} MB; //!< all database values for one fec
 
 typedef struct
 {
 	MB mb[16]; //!< all 16 fec database values
+    uint16_t pmticID[16]; //!< All 16 PMTIC IDs. Not in MB for compatibility
 	uint32_t ctcDelay; //!< ctc based trigger delay
 } Crate; //!< all database values for the crate
 
