@@ -207,7 +207,7 @@ typedef struct Fec32CmosShiftReg{
 	unsigned long   thresholdToMax;
     float			baseCurrent[32];
 	NSDate*			cmosCountTimeStamp;
-	unsigned long	cmosCount[32];
+	uint32_t        cmosCount[32];
     long			cmosRate[32];
 	BOOL			qllEnabled;
 	BOOL			dcPresent[4];
@@ -376,7 +376,7 @@ typedef struct Fec32CmosShiftReg{
 - (void) scan:(SEL)aResumeSelectorInGuardian; 
 - (void) scanWorkingSlot;
 - (BOOL) readCMOSCounts:(BOOL)calcRates channelMask:(unsigned long) aChannelMask;
-- (BOOL) processCMOSCounts:(uint32_t*)rates calcRates:(BOOL)aCalcRates withChannelMask:(unsigned long) aChannelMask;
+- (BOOL) processCMOSCounts:(uint32_t*)counts calcRates:(BOOL)aCalcRates withChannelMask:(unsigned long) aChannelMask;
 - (unsigned long) channelsWithCMOSRateHigherThan:(unsigned long)cmosRateLimit;
 - (unsigned long) channelsWithErrorCMOSRate;
 

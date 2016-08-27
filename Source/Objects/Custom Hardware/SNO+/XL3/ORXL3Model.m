@@ -3029,7 +3029,7 @@ err:
     }
     else {
         unsigned char slot_idx = 0;
-        unsigned long counts[32];
+        uint32_t counts[32];
         
         CrateNoiseRateResults rates_lo;
         CrateNoiseRateResults rates_hi;
@@ -3041,7 +3041,7 @@ err:
                 if ((msk >> i) & 0x1) {
                     //NSLog(@"slot %d:\n", i);
                     for (j=0; j<32; j++) {
-                        counts[j] = results_lo.count[slot_idx*32 + j];
+                        counts[j] = results_lo.count[slot_idx*32 + j]*10000;
                         //NSLog(@"channel: %d cnt: %ld\n", j, counts[j]);
                     }
                     ORFec32Model* fec=nil;
@@ -3062,7 +3062,7 @@ err:
             for (i=0; i<8; i++) {
                 if ((msk >> (i + 8)) & 0x1) {
                     for (j=0; j<32; j++) {
-                        counts[j] = results_hi.count[slot_idx*32 + j];
+                        counts[j] = results_hi.count[slot_idx*32 + j]*10000;
                     }
                     ORFec32Model* fec = nil;
                     for (id anObj in [[self guardian] orcaObjects]) { 

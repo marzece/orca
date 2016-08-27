@@ -1776,20 +1776,43 @@ static unsigned long cratePedMask;  // crates that need their pedestals set
 	
 	//unsigned long theOnlineMask = [self onlineMask];
     //add disabled channels
-    unsigned char ch;
+    uint8_t  ch;
     for (ch=0; ch<32; ch++) {
         if (aChannelMask & 1UL << ch) {
             theCount = counts[ch];
 			if (calcRates) { //only good CMOS count reads get here
                     if(cmosCount[ch] > theCount){
                         // theCount rolled over
-                        uint32_t dumbRate = (theCount - cmosCount[ch]) * sampleFreq;
-                        theCount = (UINT32_MAX - cmosCount[ch]) + theCount;
-                        theRate = theCount * sampleFreq;
-                        NSLogColor([NSColor redColor], @"\nROLLOVER OCCURED\n IncorrectRate = %lu\n Correct Rate = %lu",dumbRate,theRate);
+                        uint64_t initialCount = theCount;
+                        int64_t dumbCounts = (theCount - cmosCount[ch]);
+                        /*
+
+                                           theCount = 280304 (0x446f0)
+                         16-08-27 13:42:57 cmosCount[ch] = -10199696 (0xff645d70)
+                         16-08-27 13:42:57 (theCount - cmosCount[ch]) = 10480000 (0x9fe980)
+                         16-08-27 13:42:57 (UINT32_MAX - cmosCount[ch]) = 10199695 (0x9ba28f)
+                         16-08-27 13:42:57 (UINT32_MAX - cmosCount[ch])+theCount = 10479999 (0x9fe97f)
+                         */
+                        
+                        NSLog(@"theCount = %ld (0x%x)\n",theCount,theCount);
+                        NSLog(@"cmosCount[ch] = %ld (0x%x)\n",cmosCount[ch],cmosCount[ch]);
+                        NSLog(@"(theCount - cmosCount[ch]) = %ld (0x%x)\n",(theCount - cmosCount[ch]),(theCount - cmosCount[ch]));
+                        NSLog(@"(UINT32_MAX - cmosCount[ch]) = %ld (0x%x)\n",(UINT32_MAX - cmosCount[ch]),(UINT32_MAX - cmosCount[ch]));
+                        NSLog(@"(UINT32_MAX - cmosCount[ch])+theCount = %ld (0x%x)\n",(UINT32_MAX - cmosCount[ch])+theCount,(UINT32_MAX - cmosCount[ch]+theCount));
+                        int32_t smartCounts = (UINT32_MAX - cmosCount[ch]) + theCount;
+                        theRate = ((UINT32_MAX - cmosCount[ch]) + theCount)*sampleFreq;
+                        
+                        /*NSLogColor([NSColor redColor], @"\nROLLOVER OCCURED on channel %i\n \
+                                   IncorrectRate = %ld\n \
+                                   Correct Rate = %ld\n \
+                                   The Count = %lu\n \
+                                   cmosCount = %lu\n \
+                                   sampleFreq = %f\n",
+                                   ch,dumbCounts,smartCounts,initialCount,cmosCount[ch],
+                                   sampleFreq);*/
                     }
                     else{
-                        theRate = (theCount - cmosCount[ch]) * sampleFreq;
+                    theRate = (theCount - cmosCount[ch]) * sampleFreq;
                     }
 					if (theRate > 1e9) theRate = kCMOSRateCorruptRead;			//MAH 3/19/98
 			}
