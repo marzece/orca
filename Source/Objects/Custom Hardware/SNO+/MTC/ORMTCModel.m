@@ -1665,6 +1665,12 @@ resetFifoOnStart = _resetFifoOnStart;
 		/* setup pedestals and global trigger */
         [self basicMTCPedestalGTrigSetup];
         [self setThePulserRate:floatDBValue(kPulserPeriod)];
+        if(! [self isPedestalEnabledInCSR]){
+            [self enablePedestal];
+        }
+        else{
+            [self disablePedestal];
+        }
         [self enablePulser];
     } @catch(NSException* e) {
         NSLog(@"MTC failed to fire pedestals at the specified settings!\n");
@@ -1705,7 +1711,12 @@ resetFifoOnStart = _resetFifoOnStart;
         /* set the pulser rate to 0, which will enable SOFT_GT to trigger
          * pedestals */
         [self setThePulserRate:0];
-
+        if(! [self isPedestalEnabledInCSR]){
+            [self enablePedestal];
+        }
+        else{
+            [self disablePedestal];
+        }
         [self enablePulser];
 
         [mtc okCommand:"multi_soft_gt %d %f", [self fixedPulserRateCount],
