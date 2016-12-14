@@ -30,14 +30,7 @@
 
 #pragma mark •••PrivateInterface
 @interface ORMTCController (private)
-#if !defined(MAC_OS_X_VERSION_10_6) && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_6 //pre 10.6-specific
-- (void) setXilinxFileDidEnd:(NSOpenPanel *)sheet returnCode:(int)returnCode contextInfo:(void  *)contextInfo;
-- (void) setDefaultFileDidEnd:(NSOpenPanel *)sheet returnCode:(int)returnCode contextInfo:(void  *)contextInfo;
-- (void) saveDefaultSetDidEnd:(NSOpenPanel *)sheet returnCode:(int)returnCode contextInfo:(void  *)contextInfo;
-- (void) selectAndLoadDidEnd:(NSOpenPanel *)sheet returnCode:(int)returnCode contextInfo:(void  *)contextInfo;
-- (void) loadDBFileDidEnd:(NSOpenPanel *)sheet returnCode:(int)returnCode contextInfo:(void  *)contextInfo;
-#endif
-- (void) selectAndLoadDBFile:(NSString*)aStartPath;
+
 - (void) setupNHitFormats;
 - (void) setupESumFormats;
 - (void) storeUserNHitValue:(float)value index:(int) thresholdIndex;
@@ -153,20 +146,10 @@
                      selector : @selector(basicOpsRunningChanged:)
                          name : ORMTCModelBasicOpsRunningChanged
 						object: model];
-						
-    [notifyCenter addObserver : self
-                     selector : @selector(defaultFileChanged:)
-                         name : ORMTCModelDefaultFileChanged
-						object: model];
 
     [notifyCenter addObserver : self
                      selector : @selector(mtcDataBaseChanged:)
                          name : ORMTCModelMtcDataBaseChanged
-						object: model];
-						
-    [notifyCenter addObserver : self
-                     selector : @selector(lastFileLoadedChanged:)
-                         name : ORMTCModelLastFileLoadedChanged
 						object: model];
 						
    [notifyCenter addObserver : self
@@ -236,9 +219,7 @@
 	[self useMemoryChanged:nil];
 	[self autoIncrementChanged:nil];
 	[self basicOpsRunningChanged:nil];
-	[self defaultFileChanged:nil];
 	[self mtcDataBaseChanged:nil];
-	[self lastFileLoadedChanged:nil];
 	[self eSumViewTypeChanged:nil];
 	[self isPulserFixedRateChanged:nil];
 	[self fixedPulserRateCountChanged:nil];
@@ -374,10 +355,6 @@
 	NSString* ss = [model dbObjectByIndex: kDBComments];
 	if(!ss) ss = @"---";
 	[commentsField setStringValue: ss];
-	
-	NSString* xilinxFile = [model dbObjectByIndex: kXilinxFile];
-	if(!xilinxFile) xilinxFile = @"---";
-	[xilinxFilePathField setStringValue: [xilinxFile stringByAbbreviatingWithTildeInPath]];
 }
 
 - (void) displayMasks
@@ -395,16 +372,6 @@
 	for(i=0;i<25;i++){
 		[[pedCrateMaskMatrix cellWithTag:i]  setIntValue: maskValue & (1<<i)];
 	}
-}
-
-- (void) lastFileLoadedChanged:(NSNotification*)aNote
-{
-	[lastFileLoadedField setStringValue: [[[model lastFileLoaded] stringByAbbreviatingWithTildeInPath] stringByDeletingPathExtension]];
-}
-
-- (void) defaultFileChanged:(NSNotification*)aNote
-{
-	[defaultFileField setStringValue: [[[model defaultFile] stringByAbbreviatingWithTildeInPath] stringByDeletingPathExtension]];
 }
 
 - (void) basicOpsRunningChanged:(NSNotification*)aNote
@@ -448,11 +415,6 @@
 - (void) selectedRegisterChanged:(NSNotification*)aNote
 {
 	[selectedRegisterPU selectItemAtIndex: [model selectedRegister]];
-}
-
-- (void) loadXilinxPathChanged:(NSNotification*)aNote
-{
-	[xilinxFilePathField setStringValue: [[model xilinxFilePath] stringByAbbreviatingWithTildeInPath]];
 }
 
 - (void) isPulserFixedRateChanged:(NSNotification*)aNote
@@ -867,43 +829,6 @@
 	[model setNHitViewType:[[sender selectedCell] tag]];
 }
 
-- (IBAction) settingsLoadDBFile:(id) sender 
-{
-	[self selectAndLoadDBFile:[model lastFileLoaded]];
-}
-
-- (IBAction) settingsXilinxFile:(id) sender 
-{
-	NSOpenPanel *openPanel = [NSOpenPanel openPanel];
-    [openPanel setCanChooseDirectories:NO];
-    [openPanel setCanChooseFiles:YES];
-    [openPanel setAllowsMultipleSelection:NO];
-    [openPanel setPrompt:@"Choose"];
-    NSString* startingDir;
-	
-	NSString* fullPath = [[model xilinxFilePath] stringByExpandingTildeInPath];
-    if(fullPath)	startingDir = [[model xilinxFilePath] stringByDeletingLastPathComponent];
-    else			startingDir = NSHomeDirectory();
-#if defined(MAC_OS_X_VERSION_10_6) && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_6 // 10.6-specific
-    [openPanel setDirectoryURL:[NSURL fileURLWithPath:startingDir]];
-    [openPanel beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result){
-        if (result == NSFileHandlingPanelOKButton){
-            [model setXilinxFilePath:[[openPanel URL]path]];
-            NSLog(@"MTC Xilinx default file set to: %@\n",[[[[[openPanel URLs] objectAtIndex:0]path] stringByAbbreviatingWithTildeInPath] stringByDeletingPathExtension]);
-        }
-    }];
-    
-#else 		
-    [openPanel beginSheetForDirectory:startingDir
-                                 file:nil
-                                types:nil
-                       modalForWindow:[self window]
-                        modalDelegate:self
-                       didEndSelector:@selector(setXilinxFileDidEnd:returnCode:contextInfo:)
-                          contextInfo:NULL];
-#endif
-}
-
 - (IBAction) settingsMTCDAction:(id) sender 
 {
 	[model setDbObject:[sender stringValue] forIndex:[sender tag]];
@@ -987,83 +912,6 @@
 	[model setDbLong:mask forIndex:kPEDCrateMask];
 }
 
-- (IBAction) settingsDefValFile:(id) sender 
-{
-    NSOpenPanel *openPanel = [NSOpenPanel openPanel];
-    [openPanel setCanChooseDirectories:NO];
-    [openPanel setCanChooseFiles:YES];
-    [openPanel setAllowsMultipleSelection:NO];
-    [openPanel setPrompt:@"Choose"];
-    NSString* startingDir;
-	
-	NSString* fullPath = [[model defaultFile] stringByExpandingTildeInPath];
-    if(fullPath)	startingDir = [[model defaultFile] stringByDeletingLastPathComponent];
-    else			startingDir = NSHomeDirectory();
-	
-#if defined(MAC_OS_X_VERSION_10_6) && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_6 // 10.6-specific
-    [openPanel setDirectoryURL:[NSURL fileURLWithPath:startingDir]];
-    [openPanel beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result){
-        if (result == NSFileHandlingPanelOKButton){
-            [model setDefaultFile:[[openPanel URL]path]];
-            NSLog(@"MTC DataBase default file set to: %@\n",[[[[[openPanel URLs] objectAtIndex:0]path]stringByAbbreviatingWithTildeInPath] stringByDeletingPathExtension]);
-        }
-    }];
-    
-#else 	
-	[openPanel setRequiredFileType:@"mtcdb"];
-    [openPanel beginSheetForDirectory:startingDir
-                                 file:nil
-                                types:[NSArray arrayWithObject:@"mtcdb"]
-                       modalForWindow:[self window]
-                        modalDelegate:self
-                       didEndSelector:@selector(setDefaultFileDidEnd:returnCode:contextInfo:)
-                          contextInfo:NULL];
-#endif
-}
-
-
-
-
-- (IBAction) settingsDefaultSaveSet:(id) sender 
-{
-    NSSavePanel *savePanel = [NSSavePanel savePanel];
-    [savePanel setPrompt:@"Save As"];
-    [savePanel setCanCreateDirectories:YES];
-   
-    NSString* startingDir;
-    NSString* defaultFile;
-	defaultFile = nil; //to make both 10.5 and 10.8 compilers happy
-    
-	NSString* fullPath = [[model lastFile] stringByExpandingTildeInPath];
-    if(fullPath){
-        startingDir = [fullPath stringByDeletingLastPathComponent];
-        //defaultFile = [fullPath lastPathComponent];
-    }
-    else {
-        startingDir = NSHomeDirectory();
-        //defaultFile = @"MtcDataBase";
-    }
-#if defined(MAC_OS_X_VERSION_10_6) && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_6 // 10.6-specific
-  	[savePanel setAllowedFileTypes:[NSArray arrayWithObject:@"mtcdb"]];
-    [savePanel setDirectoryURL:[NSURL fileURLWithPath:startingDir]];
-    [savePanel beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result){
-        if (result == NSFileHandlingPanelOKButton){
-            [model saveSet:[[savePanel URL] path]];
-            NSLog(@"MTC DataBase saved into: %@\n",[[[[savePanel URL] path] stringByAbbreviatingWithTildeInPath] stringByDeletingPathExtension]);
-        }
-    }];
-    
-#else 	
-
- 	[savePanel setRequiredFileType:@"mtcdb"];
-    [savePanel beginSheetForDirectory:startingDir
-                                 file:[defaultFile stringByExpandingTildeInPath]
-                       modalForWindow:[self window]
-                        modalDelegate:self
-                       didEndSelector:@selector(saveDefaultSetDidEnd:returnCode:contextInfo:)
-                          contextInfo:NULL];
-#endif	
-}
 
 - (IBAction) triggerMTCAN100:(id) sender
 {
@@ -1193,81 +1041,6 @@
 
 #pragma mark •••PrivateInterface
 @implementation ORMTCController (private)
-#if !defined(MAC_OS_X_VERSION_10_6) && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_6 //pre 10.6-specific
-- (void) setXilinxFileDidEnd:(NSOpenPanel *)sheet returnCode:(int)returnCode contextInfo:(void  *)contextInfo
-{
-    if(returnCode){
-        [model setXilinxFilePath:[[sheet filenames] objectAtIndex:0]];
-		NSLog(@"MTC Xilinx default file set to: %@\n",[[[[sheet filenames] objectAtIndex:0] stringByAbbreviatingWithTildeInPath] stringByDeletingPathExtension]);
-    }
-}
-- (void) setDefaultFileDidEnd:(NSOpenPanel *)sheet returnCode:(int)returnCode contextInfo:(void  *)contextInfo
-{
-    if(returnCode){
-        [model setDefaultFile:[[sheet filenames] objectAtIndex:0]];
-		NSLog(@"MTC DataBase default file set to: %@\n",[[[[sheet filenames] objectAtIndex:0] stringByAbbreviatingWithTildeInPath] stringByDeletingPathExtension]);
-    }
-}
-
-- (void) saveDefaultSetDidEnd:(NSOpenPanel *)sheet returnCode:(int)returnCode contextInfo:(void  *)contextInfo
-{
-    if(returnCode){
-        [model saveSet:[[sheet filenames] objectAtIndex:0]];
-		NSLog(@"MTC DataBase saved into: %@\n",[[[[sheet filenames] objectAtIndex:0] stringByAbbreviatingWithTildeInPath] stringByDeletingPathExtension]);
-    }
-}
-
-- (void) selectAndLoadDidEnd:(NSOpenPanel *)sheet returnCode:(int)returnCode contextInfo:(void  *)contextInfo
-{
-    if(returnCode){
-        [model loadSet:[[sheet filenames] objectAtIndex:0]];
-		NSLog(@"MTC DataBase loaded from: %@\n",[[[[sheet filenames] objectAtIndex:0] stringByAbbreviatingWithTildeInPath] stringByDeletingPathExtension]);
-    }
-}
-
-- (void) loadDBFileDidEnd:(NSOpenPanel *)sheet returnCode:(int)returnCode contextInfo:(void  *)contextInfo
-{
-    if(returnCode){
-        [model loadSet:[[sheet filenames] objectAtIndex:0]];
-		NSLog(@"MTC DataBase loaded from: %@\n",[[[[sheet filenames] objectAtIndex:0] stringByAbbreviatingWithTildeInPath] stringByDeletingPathExtension]);
-    }
-}
-#endif
-
-- (void) selectAndLoadDBFile:(NSString*)aStartPath
-{
-    NSOpenPanel *openPanel = [NSOpenPanel openPanel];
-    [openPanel setCanChooseDirectories:NO];
-    [openPanel setCanChooseFiles:YES];
-    [openPanel setAllowsMultipleSelection:NO];
-    [openPanel setPrompt:@"Choose"];
-	NSString* startingDir;
-	
-	NSString* fullPath = [aStartPath stringByExpandingTildeInPath];
-    if(fullPath)	startingDir = [fullPath stringByDeletingLastPathComponent];
-    else			startingDir = NSHomeDirectory();
-    
-#if defined(MAC_OS_X_VERSION_10_6) && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_6 // 10.6-specific
- 	[openPanel setAllowedFileTypes:[NSArray arrayWithObject:@"mtcdb"]];
-    [openPanel setDirectoryURL:[NSURL fileURLWithPath:startingDir]];
-    [openPanel beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result){
-        if (result == NSFileHandlingPanelOKButton){
-            [model loadSet:[[openPanel URL]path]];
-            NSLog(@"MTC DataBase loaded from: %@\n",[[[[[openPanel URLs] objectAtIndex:0] path]stringByAbbreviatingWithTildeInPath] stringByDeletingPathExtension]);
-        }
-    }];
-    
-#else 	
- 	[openPanel setRequiredFileType:@"mtcdb"];
-    [openPanel beginSheetForDirectory:startingDir
-                                 file:nil
-                                types:[NSArray arrayWithObject:@"mtcdb"]
-                       modalForWindow:[self window]
-                        modalDelegate:self
-                       didEndSelector:@selector(selectAndLoadDidEnd:returnCode:contextInfo:)
-                          contextInfo:NULL];
-#endif
-}
 
 - (void) setupNHitFormats
 {

@@ -41,7 +41,6 @@
     IBOutlet NSTextField* 	memBaseAddressText;
     IBOutlet NSStepper* 	memBaseAddressStepper;
 	IBOutlet NSButton*		basicOpsLockButton;
- 	IBOutlet NSTextField*	defaultFileField;
     IBOutlet NSButton *readButton;
     IBOutlet NSButton *writteButton;
     IBOutlet NSButton *stopButton;
@@ -76,8 +75,6 @@
 	//settings
 	IBOutlet NSMatrix*		eSumViewTypeMatrix;
 	IBOutlet NSMatrix*		nHitViewTypeMatrix;
- 	IBOutlet NSTextField*	xilinxFilePathField;
-	IBOutlet NSTextField*	lastFileLoadedField;
  	IBOutlet NSTextField*	lockOutWidthField;
  	IBOutlet NSTextField*	pedestalWidthField;
  	IBOutlet NSTextField*	nhit100LoPrescaleField;
@@ -134,7 +131,6 @@
 - (void) eSumViewTypeChanged:(NSNotification*)aNote;
 - (void) nHitViewTypeChanged:(NSNotification*)aNote;
 - (void) mtcDataBaseChanged:(NSNotification*)aNote;
-- (void) defaultFileChanged:(NSNotification*)aNote;
 - (void) basicOpsRunningChanged:(NSNotification*)aNote;
 - (void) autoIncrementChanged:(NSNotification*)aNote;
 - (void) useMemoryChanged:(NSNotification*)aNote;
@@ -152,7 +148,6 @@
 - (void) fixedPulserRateDelayChanged:(NSNotification*)aNote;
 - (void) tabView:(NSTabView*)aTabView didSelectTabViewItem:(NSTabViewItem*)item;
 - (void) displayMasks;
-- (void) lastFileLoadedChanged:(NSNotification*)aNote;
 - (void) sequenceRunning:(NSNotification*)aNote;
 - (void) sequenceStopped:(NSNotification*)aNote;
 - (void) sequenceProgress:(NSNotification*)aNote;
@@ -206,9 +201,6 @@
 //Settings
 - (IBAction) eSumViewTypeAction:(id)sender;
 - (IBAction) nHitViewTypeAction:(id)sender;
-- (IBAction) settingsLoadDBFile:(id) sender;
-- (IBAction) settingsDefValFile:(id) sender;
-- (IBAction) settingsXilinxFile:(id) sender;
 - (IBAction) settingsMTCDAction:(id) sender;
 - (IBAction) settingsNHitAction:(id) sender;
 - (IBAction) settingsESumAction:(id) sender;

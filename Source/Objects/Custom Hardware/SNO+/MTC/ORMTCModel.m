@@ -38,9 +38,6 @@
 #pragma mark •••Definitions
 NSString* ORMTCModelESumViewTypeChanged		= @"ORMTCModelESumViewTypeChanged";
 NSString* ORMTCModelNHitViewTypeChanged		= @"ORMTCModelNHitViewTypeChanged";
-NSString* ORMTCModelDefaultFileChanged		= @"ORMTCModelDefaultFileChanged";
-NSString* ORMTCModelLastFileChanged			= @"ORMTCModelLastFileChanged";
-NSString* ORMTCModelLastFileChangedLoaded	= @"ORMTCModelLastFileLoadedChanged";
 NSString* ORMTCModelBasicOpsRunningChanged	= @"ORMTCModelBasicOpsRunningChanged";
 NSString* ORMTCModelAutoIncrementChanged	= @"ORMTCModelAutoIncrementChanged";
 NSString* ORMTCModelUseMemoryChanged		= @"ORMTCModelUseMemoryChanged";
@@ -51,7 +48,6 @@ NSString* ORMTCModelMemoryOffsetChanged		= @"ORMTCModelMemoryOffsetChanged";
 NSString* ORMTCModelSelectedRegisterChanged	= @"ORMTCModelSelectedRegisterChanged";
 NSString* ORMTCModelXilinxPathChanged		= @"ORMTCModelXilinxPathChanged";
 NSString* ORMTCModelMtcDataBaseChanged		= @"ORMTCModelMtcDataBaseChanged";
-NSString* ORMTCModelLastFileLoadedChanged	= @"ORMTCModelLastFileLoadedChanged";
 NSString* ORMTCModelIsPulserFixedRateChanged	= @"ORMTCModelIsPulserFixedRateChanged";
 NSString* ORMTCModelFixedPulserRateCountChanged = @"ORMTCModelFixedPulserRateCountChanged";
 NSString* ORMTCModelFixedPulserRateDelayChanged = @"ORMTCModelFixedPulserRateDelayChanged";
@@ -163,7 +159,6 @@ static SnoMtcDBInfoStruct dbLookUpTable[kDbLookUpTableSize] = {
 { @"MTC,tub",					@"40"},		//54
 
 {@"Comments",					@"Nothing Noted"},		//55
-{@"XilinxFilePath",				@"--"},		//56
 
 };
 
@@ -264,9 +259,6 @@ resetFifoOnStart = _resetFifoOnStart;
 - (void) dealloc
 {
     [mtc release];
-    [defaultFile release];
-    [lastFile release];
-    [lastFileLoaded release];
     [mtcDataBase release];
     [_mtcStatusTime10Mhz release];
     [super dealloc];
@@ -377,61 +369,6 @@ resetFifoOnStart = _resetFifoOnStart;
 	
     [[NSNotificationCenter defaultCenter] postNotificationName:ORMTCModelNHitViewTypeChanged object:self];
 }
-
-- (NSString*) xilinxFilePath
-{
-    return [self dbObjectByIndex:kXilinxFile];
-}
-
-- (void) setXilinxFilePath:(NSString*)aDefaultFile
-{
- 	if(!aDefaultFile)aDefaultFile = @"--";
-	[self setDbObject:aDefaultFile forIndex:kXilinxFile];
-}
-
-- (NSString*) defaultFile
-{
-    return defaultFile;
-}
-
-- (void) setDefaultFile:(NSString*)aDefaultFile
-{
- 	if(!aDefaultFile)aDefaultFile = @"--";
-    [[[self undoManager] prepareWithInvocationTarget:self] setDefaultFile:defaultFile];
-	
-    [defaultFile autorelease];
-    defaultFile = [aDefaultFile copy];    
-	
-    [[NSNotificationCenter defaultCenter] postNotificationName:ORMTCModelDefaultFileChanged object:self];
-}
-
-- (NSString*) lastFile
-{
-    return lastFile;
-}
-
-- (void) setLastFile:(NSString*)aLastFile
-{
-    [lastFile autorelease];
-    lastFile = [aLastFile copy];    
-	
-    [[NSNotificationCenter defaultCenter] postNotificationName:ORMTCModelLastFileChanged object:self];
-}
-
-- (NSString*) lastFileLoaded
-{
-    return lastFileLoaded;
-}
-
-- (void) setLastFileLoaded:(NSString*)aFile
-{
-	if(!aFile)aFile = @"--";
-    [lastFileLoaded autorelease];
-    lastFileLoaded = [aFile copy];    
-	
-    [[NSNotificationCenter defaultCenter] postNotificationName:ORMTCModelLastFileLoadedChanged object:self];
-}
-
 
 - (BOOL) basicOpsRunning
 {
@@ -783,9 +720,6 @@ resetFifoOnStart = _resetFifoOnStart;
     [[self undoManager] disableUndoRegistration];
     [self setESumViewType:	[decoder decodeIntForKey:		@"ORMTCModelESumViewType"]];
     [self setNHitViewType:	[decoder decodeIntForKey:		@"ORMTCModelNHitViewType"]];
-    [self setDefaultFile:	[decoder decodeObjectForKey:	@"ORMTCModelDefaultFile"]];
-    [self setLastFile:		[decoder decodeObjectForKey:	@"ORMTCModelLastFile"]];
-    [self setLastFileLoaded:[decoder decodeObjectForKey:	@"ORMTCModelLastFileLoaded"]];
     [self setAutoIncrement:	[decoder decodeBoolForKey:		@"ORMTCModelAutoIncrement"]];
     [self setUseMemory:		[decoder decodeIntForKey:		@"ORMTCModelUseMemory"]];
     [self setRepeatDelay:	[decoder decodeIntForKey:		@"ORMTCModelRepeatDelay"]];
@@ -826,9 +760,6 @@ resetFifoOnStart = _resetFifoOnStart;
     [super encodeWithCoder:encoder];
 	[encoder encodeInt:eSumViewType		forKey:@"ORMTCModelESumViewType"];
 	[encoder encodeInt:nHitViewType		forKey:@"ORMTCModelNHitViewType"];
-	[encoder encodeObject:defaultFile	forKey:@"ORMTCModelDefaultFile"];
-	[encoder encodeObject:lastFile		forKey:@"ORMTCModelLastFile"];
-	[encoder encodeObject:lastFileLoaded forKey:@"ORMTCModelLastFileLoaded"];
 	[encoder encodeBool:autoIncrement	forKey:@"ORMTCModelAutoIncrement"];
 	[encoder encodeInt:useMemory		forKey:@"ORMTCModelUseMemory"];
 	[encoder encodeInt:repeatDelay		forKey:@"ORMTCModelRepeatDelay"];
@@ -1928,16 +1859,6 @@ resetFifoOnStart = _resetFifoOnStart;
 	NSLog(@"Mtc control reg: 0x%0x\n", [self getMTC_CSR]);
 }
 
-- (void) saveSet:(NSString*)filePath
-{
-	[mtcDataBase writeToFile:filePath atomically:NO];
-} 
-
-- (void) loadSet:(NSString*)filePath
-{	
-	[self setMtcDataBase:[NSMutableDictionary dictionaryWithContentsOfFile: filePath]];
-	[self setLastFileLoaded:filePath];
-}
 
 @end
 

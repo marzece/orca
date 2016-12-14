@@ -54,11 +54,6 @@
 		float				fixedPulserRateDelay;
     BOOL _isPedestalEnabledInCSR;
 		
-		//settings
-		NSString*				lastFileLoaded;
-		NSString*				lastFile;
-		NSString*				defaultFile;
-		
 		int						nHitViewType;
 		int						eSumViewType;
     
@@ -127,14 +122,6 @@
 - (void) setESumViewType:(int)aESumViewType;
 - (int) nHitViewType;
 - (void) setNHitViewType:(int)aNHitViewType;
-- (NSString*) xilinxFilePath;
-- (void) setXilinxFilePath:(NSString*)aDefaultFile;
-- (NSString*) defaultFile;
-- (void) setDefaultFile:(NSString*)aDefaultFile;
-- (NSString*) lastFile;
-- (void) setLastFile:(NSString*)aLastFile;
-- (NSString*) lastFileLoaded;
-- (void) setLastFileLoaded:(NSString*)aLastFile;
 - (BOOL) basicOpsRunning;
 - (void) setBasicOpsRunning:(BOOL)aBasicOpsRunning;
 - (BOOL) autoIncrement;
@@ -261,18 +248,12 @@
 //Extra getter functions
 -(NSMutableDictionary*) get_MTCDataBase;
 
-#pragma mark •••Settings
-- (void) saveSet:(NSString*)filePath;
-- (void) loadSet:(NSString*)filePath;
 @end
 
 
 
 extern NSString* ORMTCModelESumViewTypeChanged;
 extern NSString* ORMTCModelNHitViewTypeChanged;
-extern NSString* ORMTCModelDefaultFileChanged;
-extern NSString* ORMTCModelLastFileChanged;
-extern NSString* ORMTCModelLastFileLoadedChanged;
 extern NSString* ORMTCModelBasicOpsRunningChanged;
 extern NSString* ORMTCModelAutoIncrementChanged;
 extern NSString* ORMTCModelUseMemoryChanged;
