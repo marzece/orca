@@ -151,11 +151,6 @@
                      selector : @selector(mtcDataBaseChanged:)
                          name : ORMTCModelMtcDataBaseChanged
 						object: model];
-						
-   [notifyCenter addObserver : self
-                     selector : @selector(nHitViewTypeChanged:)
-                         name : ORMTCModelNHitViewTypeChanged
-						object: model];
 
 	[notifyCenter addObserver : self
                      selector : @selector(eSumViewTypeChanged:)
@@ -206,7 +201,6 @@
 - (void) updateWindow
 {
     [super updateWindow];
- 	[self nHitViewTypeChanged:nil];
     [self regBaseAddressChanged:nil];
     [self memBaseAddressChanged:nil];
     [self slotChanged:nil];
@@ -272,12 +266,6 @@
 	[self mtcDataBaseChanged:nil];
 }
 
-- (void) nHitViewTypeChanged:(NSNotification*)aNote
-{
-	[nHitViewTypeMatrix selectCellWithTag: [model nHitViewType]];
-	[self setupNHitFormats];
-	[self mtcDataBaseChanged:nil];
-}
 
 
 - (void) mtcDataBaseChanged:(NSNotification*)aNote
@@ -295,7 +283,8 @@
 	[self displayMasks];
 
 	//load the nhit values
-	int col,row;
+	/*
+    int col,row;
 	float displayValue=0;
 	for(col=0;col<4;col++){
 		for(row=0;row<6;row++){
@@ -351,7 +340,7 @@
 			[[esumMatrix cellAtRow:row column:col] setFloatValue:displayValue];
 		}
 	}
-	
+	*/
 	NSString* ss = [model dbObjectByIndex: kDBComments];
 	if(!ss) ss = @"---";
 	[commentsField setStringValue: ss];
@@ -826,33 +815,41 @@
 - (IBAction) nHitViewTypeAction:(id)sender
 {
 	[self endEditing];
-	[model setNHitViewType:[[sender selectedCell] tag]];
+	// TODO: Make this not use a model variable,
+    // btw it's rediculous that someone would use a model variable for this.
+    [self changeNhitThresholdsDisplay: [sender tag]];
 }
 
-- (IBAction) settingsMTCDAction:(id) sender 
+- (void) changeNhitThresholdsDisplay: (int) type
+{
+    for(int i=0;i<7;i++)
+    {
+        [[nhitMatrix cellWithTag:i] setFloatValue:
+         [model getThresholdOfType:[self convert_view_index_to_model_index:i]
+                           inUnits:type]];
+    }
+}
+- (int) convert_view_thresold_index_to_model_index: (int) view_index {
+    return view_index;
+}
+- (int) convert_model_threshold_index_to_view_index: (int) model_index{
+    return model_index;
+}
+- (int) convert_view_unit_index_to_model_index: (int) view_index {
+    return view_index;
+}
+- (int) convert_model_unit_index_to_view_index: (int) model_index{
+    return model_index;
+}
+
+- (IBAction) settingsMTCDAction:(id) sender
 {
 	[model setDbObject:[sender stringValue] forIndex:[sender tag]];
 }
 
 - (IBAction) settingsNHitAction:(id) sender 
 {
-	int row = [sender selectedRow];
-	int col = [sender selectedColumn];
-	int index = kNHit100HiThreshold + row + (col * 6);
-	
-	//get the value the user entered
-	float theValue = [[sender cellAtRow:row column:col] floatValue];
-	if((index >= kNHit100HimVperNHit) && (index <= kOWLNdcOffset)) {
-		[model setDbFloat:theValue forIndex:index];
-		[self calcNHitValueForRow:row];
-	}
-	else if((index >= kNHit100HiThreshold) && (index <= kOWLNThreshold)){
-		[self storeUserNHitValue:theValue index:index];
-	}
-	else {
-		[model setDbFloat:theValue forIndex:index];	
-	}
-    [[sender window] makeFirstResponder:tabView];
+    
 }
 
 
@@ -1169,4 +1166,3 @@
 }
 
 @end
-

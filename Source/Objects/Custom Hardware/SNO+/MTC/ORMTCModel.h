@@ -54,8 +54,10 @@
 		float				fixedPulserRateDelay;
     BOOL _isPedestalEnabledInCSR;
 		
-		int						nHitViewType;
-		int						eSumViewType;
+		//The view type is not a model parameter!!!
+    
+        //int						nHitViewType;
+		//int						eSumViewType;
     
     //MTCA+ crate masks
     unsigned long _mtcaN100Mask;
@@ -92,7 +94,6 @@
 @property (nonatomic,assign) unsigned long dataId;
 @property (nonatomic,assign) unsigned long mtcStatusDataId;
 @property (nonatomic,assign) unsigned long mtcStatusGTID;
-@property (nonatomic,assign) double mtcStatusGTIDRate;
 @property (nonatomic,assign) unsigned long long mtcStatusCnt10MHz;
 @property (nonatomic,copy) NSString* mtcStatusTime10Mhz;
 @property (nonatomic,assign) unsigned long mtcStatusReadPtr;
@@ -155,7 +156,7 @@
 - (float) dbFloatByIndex:(int)anIndex;
 - (int) dbIntByIndex:(int)anIndex;
 - (int) dacValueByIndex:(short)anIndex;
-
+- (float) getThresholdOfType:(int) type inUnits:(int) units;
 #pragma mark •••Converters
 - (unsigned long) mVoltsToRaw:(float) mVolts;
 - (float) rawTomVolts:(long) aRawValue;

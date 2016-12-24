@@ -107,6 +107,7 @@ static SnoMtcDBInfoStruct dbLookUpTable[kDbLookUpTableSize] = {
 { @"MTC/D,ControlMask",			@"0" },		//13
 
 //defaults for the MTC A NHit
+    /*
 { @"MTC/A,NHit100Hi,Threshold",	@"1"},		//14
 { @"MTC/A,NHit100Med,Threshold",@"2"},		//15
 { @"MTC/A,NHit100Lo,Threshold",	@"3"},		//16
@@ -134,7 +135,7 @@ static SnoMtcDBInfoStruct dbLookUpTable[kDbLookUpTableSize] = {
 { @"MTC/A,NHit20,dcOffset",		@"40"},		//35
 { @"MTC/A,NHit20LB,dcOffset",	@"50"},		//36
 { @"MTC/A,OWLN,dcOffset",		@"60"},		//37
-
+*/
 //defaults for the MTC A ESUM
 { @"MTC/A,ESumLow,Threshold",	@"10"},		//38
 { @"MTC/A,ESumHi,Threshold",	@"20"},		//39
@@ -162,9 +163,23 @@ static SnoMtcDBInfoStruct dbLookUpTable[kDbLookUpTableSize] = {
 
 };
 
-int mtcDacIndexes[14]=
+
+#define MTC_N100_LO_THRESHOLD_INDEX  1
+#define MTC_N100_MED_THRESHOLD_INDEX 2
+#define MTC_N100_HI_THRESHOLD_INDEX  3
+#define MTC_N20LB_THRESHOLD_INDEX    4
+#define MTC_ESUML_THRESHOLD_INDEX    5
+#define MTC_ESUMH_THRESHOLD_INDEX    6
+#define MTC_OWLN_THRESHOLD_INDEX     7
+#define MTC_OWLELO_THRESHOLD_INDEX   8
+#define MTC_OWLEHi_THRESHOLD_INDEX   9
+#define MTC_RAW_UNITS 1
+#define MTC_mV_UNITS 2
+#define MTC_NHIT_UNITS 3
+
+/*int mtcDacIndexes[14]=
 {
-kNHit100HiThreshold,	
+kNHit100HiThreshold,
 kNHit100MedThreshold,
 kNHit100LoThreshold,	
 kNHit20Threshold,	
@@ -178,7 +193,7 @@ kControlMask,
 kGtMask,
 kGtCrateMask,
 kPEDCrateMask
-};
+};*/
 
 @interface ORMTCModel (private)
 - (void) doBasicOp;
@@ -191,7 +206,6 @@ kPEDCrateMask
 dataId = _dataId,
 mtcStatusDataId = _mtcStatusDataId,
 mtcStatusGTID = _mtcStatusGTID,
-mtcStatusGTIDRate = _mtcStatusGTIDRate,
 mtcStatusCnt10MHz = _mtcStatusCnt10MHz,
 mtcStatusTime10Mhz = _mtcStatusTime10Mhz,
 mtcStatusReadPtr = _mtcStatusReadPtr,
@@ -819,7 +833,12 @@ resetFifoOnStart = _resetFifoOnStart;
 - (id)        dbObjectByName:(NSString*)aKey	  { return [mtcDataBase objectForNestedKey:aKey]; }
 - (NSString*) getDBKeyByIndex:(short) anIndex	  { return dbLookUpTable[anIndex].key; }
 - (NSString*) getDBDefaultByIndex:(short) anIndex { return dbLookUpTable[anIndex].defaultValue;  }
-- (int)       dacValueByIndex:(short)anIndex	  { return [self dbIntByIndex:mtcDacIndexes[anIndex]]; }
+- (int)       dacValueByIndex:(short)anIndex	  { return 0;}//[self dbIntByIndex:mtcDacIndexes[anIndex]]; }
+
+- (float) getThresholdOfType:(int) type inUnits:(int) units
+{
+    
+}
 
 #pragma mark •••HW Access
 - (short) getNumberRegisters
@@ -1695,14 +1714,14 @@ resetFifoOnStart = _resetFifoOnStart;
     int i;
     uint16_t dacs[14];
 
-    dacs[0] = [self dbIntByIndex:kNHit100LoThreshold];
-    dacs[1] = [self dbIntByIndex:kNHit100MedThreshold];
-    dacs[2] = [self dbIntByIndex:kNHit100HiThreshold];
-    dacs[3] = [self dbIntByIndex:kNHit20Threshold];
-    dacs[4] = [self dbIntByIndex:kNHit20LBThreshold];
+    dacs[0] = [self getThresholdOfType:MTC_N100_LO_THRESHOLD_INDEX inUnits:MTC_RAW_UNITS];
+    dacs[1] = [self getThresholdOfType:MTC_N100_MED_THRESHOLD_INDEX inUnits:MTC_RAW_UNITS];
+    dacs[2] = [self getThresholdOfType:MTC_N100_HI_THRESHOLD_INDEX inUnits:MTC_RAW_UNITS];
+   // dacs[3] = [self getThresholdOfType:MTC_N20_THRESHOLD_INDEX inUnits: MTC_RAW_UNITS];
+   // dacs[4] = [self dbIntByIndex:kNHit20LBThreshold];
     dacs[5] = [self dbIntByIndex:kESumLowThreshold];
     dacs[6] = [self dbIntByIndex:kESumHiThreshold];
-    dacs[7] = [self dbIntByIndex:kOWLNThreshold];
+   // dacs[7] = [self dbIntByIndex:kOWLNThreshold];
     dacs[8] = [self dbIntByIndex:kOWLELoThreshold];
     dacs[9] = [self dbIntByIndex:kOWLEHiThreshold];
 
