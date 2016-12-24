@@ -4,7 +4,11 @@
 //
 //  Created by Ian Coulter on 9/15/15.
 //  Largely written by Eric Marzec marzece@gmail.com
-//  Last edited on Jan 23 2016
+//  Change Log:
+//          Jan 23 2016 - Eric M - Finished intial implementation of TUBii
+//          Nov ?? 2016 - Ian C - Added sync/async trigger mask distinction
+//          Dec 23 2016 - Eric M - Let redis client exceptions bubble up instead of catching them
+//
 //  See comments in TUBiiModel.m for the deets
 #pragma mark •••Imported Files
 #import "OrcaObject.h"
@@ -104,11 +108,11 @@ struct TUBiiState { //A struct that allows users of TUBiiModel to get/set all of
     int smellieNPulses;
     int tellieNPulses;
     int NPulses;
-    BOOL CounterMode_memoryVal;//Hack b/c tubii server doesn't yet have GetCounterMode command
+    BOOL CounterMode_memoryVal; // Hack b/c tubii server doesn't yet have GetCounterMode command
 
     RedisClient *connection;
     int portNumber;
-    NSString* strHostName;//"192.168.80.25";
+    NSString* strHostName;
 }
 @property (readonly) BOOL solitaryObject; //Prevents there from being two TUBiis
 @property (nonatomic) int portNumber;
