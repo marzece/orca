@@ -105,10 +105,9 @@ struct TUBiiState { //A struct that allows users of TUBiiModel to get/set all of
     int tellieNPulses;
     int pulserNPulses;
     BOOL CounterMode_memoryVal;//Hack b/c tubii server doesn't yet have GetCounterMode command
-
     RedisClient *connection;
     int portNumber;
-    NSString* strHostName;//"192.168.80.25";
+    NSString* strHostName;
 }
 @property (readonly) BOOL solitaryObject; //Prevents there from being two TUBiis
 @property (nonatomic) int portNumber;

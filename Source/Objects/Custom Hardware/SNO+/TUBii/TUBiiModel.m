@@ -149,23 +149,12 @@ NSString* ORTubiiLock				= @"ORTubiiLock";
 }
 #pragma mark •••Network Communication
 - (void) sendOkCmd:(NSString* const)aCmd {
-    @try {
-        NSLog(@"Sending %@ to TUBii\n",aCmd);
-        [connection okCommand: [aCmd UTF8String]];
-    }
-    @catch (NSException *exception) {
-        NSLogColor([NSColor redColor],@"Command: %@ failed.  Reason: %@\n", aCmd,[exception reason]);
-    }
+    NSLog(@"Sending %@ to TUBii\n",aCmd);
+    [connection okCommand: [aCmd UTF8String]];
 }
 - (int) sendIntCmd: (NSString* const) aCmd {
-    @try {
-        NSLog(@"Sending %@ to TUBii\n",aCmd);
-        return [connection intCommand: [aCmd UTF8String]];
-    }
-    @catch (NSException *exception) {
-        NSLogColor([NSColor redColor],@"Command: %@ failed.  Reason: %@\n", aCmd,[exception reason]);
-        return nil;
-    }
+    NSLog(@"Sending %@ to TUBii\n",aCmd);
+    return [connection intCommand: [aCmd UTF8String]];
 }
 #pragma mark •••HW Access
 - (void) Initialize {
