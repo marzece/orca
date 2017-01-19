@@ -109,11 +109,11 @@ NSString* ORTELLIERunFinished = @"ORTELLIERunFinished";
     self = [super init];
     if (self){
         XmlrpcClient* tellieCli = [[XmlrpcClient alloc] initWithHostName:@"builder1" withPort:@"5030"];
-        XmlrpcClient* smellieCli = [[XmlrpcClient alloc] initWithHostName:@"snodrop1" withPort:@"5020"];
+        XmlrpcClient* smellieCli = [[XmlrpcClient alloc] initWithHostName:@"snodrop" withPort:@"5020"];
         [self setTellieClient:tellieCli];
         [self setSmellieClient:smellieCli];
         [[self tellieClient] setTimeout:10];
-        [[self smellieClient] setTimeout:20];
+        [[self smellieClient] setTimeout:6000];
         [tellieCli release];
         [smellieCli release];
     }
@@ -125,11 +125,11 @@ NSString* ORTELLIERunFinished = @"ORTELLIERunFinished";
     self = [super initWithCoder:aCoder];
     if (self){
         XmlrpcClient* tellieCli = [[XmlrpcClient alloc] initWithHostName:@"builder1" withPort:@"5030"];
-        XmlrpcClient* smellieCli = [[XmlrpcClient alloc] initWithHostName:@"snodrop1" withPort:@"5020"];
+        XmlrpcClient* smellieCli = [[XmlrpcClient alloc] initWithHostName:@"snodrop" withPort:@"5020"];
         [self setTellieClient:tellieCli];
         [self setSmellieClient:smellieCli];
         [[self tellieClient] setTimeout:10];
-        [[self smellieClient] setTimeout:20];
+        [[self smellieClient] setTimeout:6000];
         [tellieCli release];
         [smellieCli release];
     }
@@ -1174,7 +1174,8 @@ err:
 /*                  Smellie Functions                    */
 /*********************************************************/
 -(void) setSmellieNewRun:(NSNumber *)runNumber{
-    NSArray* args = @[runNumber];
+    
+    NSArray* args = [NSArray arrayWithObjects:runNumber, nil];
     [[self smellieClient] command:@"new_run" withArgs:args];
 }
 
@@ -1472,7 +1473,7 @@ err:
     // Create and push initial smellie run doc and tell smellie which run we're in
     if([runControl isRunning]){
         @try{
-            [self setSmellieNewRun:[runControl runNumber]];
+            [self setSmellieNewRun:[NSNumber numberWithUnsignedLong:[runControl runNumber]]];
         } @catch(NSException* e) {
             NSLogColor([NSColor redColor], @"[SMELLIE]: Problem with server request: %@\n", [e reason]);
             goto err;
