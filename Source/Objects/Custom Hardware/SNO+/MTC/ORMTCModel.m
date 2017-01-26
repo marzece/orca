@@ -121,16 +121,6 @@ static SnoMtcDBInfoStruct dbLookUpTable[kDbLookUpTableSize] = {
 @implementation ORMTCModel
 
 @synthesize
-dataId = _dataId,
-mtcStatusDataId = _mtcStatusDataId,
-mtcStatusGTID = _mtcStatusGTID,
-mtcStatusCnt10MHz = _mtcStatusCnt10MHz,
-mtcStatusTime10Mhz = _mtcStatusTime10Mhz,
-mtcStatusReadPtr = _mtcStatusReadPtr,
-mtcStatusWritePtr = _mtcStatusWritePtr,
-mtcStatusDataAvailable = _mtcStatusDataAvailable,
-mtcStatusNumEventsInMem = _mtcStatusNumEventsInMem,
-resetFifoOnStart = _resetFifoOnStart,
 pulserEnabled = _pulserEnabled,
 tubRegister;
 
@@ -193,7 +183,6 @@ tubRegister;
 {
     [mtc release];
     [mtcDataBase release];
-    [_mtcStatusTime10Mhz release];
     [super dealloc];
 }
 
