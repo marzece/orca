@@ -189,6 +189,8 @@
 - (BOOL) ConversionIsValidForThreshold:(int) type;
 - (void) setConversionIsValidForThreshold:(int) type isValid:(BOOL) _val;
 
+
+- (NSString*) StringForThreshold:(int) threshold_index;
 - (void) loadFromSearialization:(NSMutableDictionary*) serial;
 - (NSMutableDictionary*) serializeToDictionary;
 
@@ -265,7 +267,11 @@
 - (void) writeBasicOps;
 - (void) stopBasicOps;
 @end
-
+extern NSString* GTMaskSerializationString;
+extern NSString* PulserRateSerializationString;
+extern NSString* PGT_PED_Mode_SerializationString;
+extern NSString* PulserEnabledSerializationString;
+extern NSString* PrescaleValueSerializationString;
 extern NSString* ORMTCModelBasicOpsRunningChanged;
 extern NSString* ORMTCABaselineChanged;
 extern NSString* ORMTCAThresholdChanged;
