@@ -1338,8 +1338,7 @@ tubRegister;
 	@catch(NSException* localException) {
 		NSLog(@"Could not set GT Pusler rate!\n");			
 		NSLog(@"Exception: %@\n",localException);
-		[localException raise];			
-		
+		[localException raise];
 	}
 }
 
