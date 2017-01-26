@@ -37,6 +37,13 @@ NSString* PrescaleValueSerializationString      = @"MTC_PrescaleValue";
 NSString* PulserRateSerializationString         = @"MTC_PulserRate";
 NSString* PGT_PED_Mode_SerializationString      = @"MTC_PulserMode";
 NSString* PulserEnabledSerializationString      = @"MTC_PulserEnabled";
+
+NSString* GTMaskSerializationString_rosetta             = @"MTC_GTMask";
+NSString* PrescaleValueSerializationString_rosetta      = @"MTC_PrescaleValue";
+NSString* PulserRateSerializationString_rosetta         = @"MTC_PulserRate";
+NSString* PGT_PED_Mode_SerializationString_rosetta      = @"MTC_PulserMode";
+NSString* PulserEnabledSerializationString_rosetta      = @"MTC_PulserEnabled";
+
 NSString* ORMTCModelBasicOpsRunningChanged      = @"ORMTCModelBasicOpsRunningChanged";
 NSString* ORMTCABaselineChanged                 = @"ORMTCABaselineChanged";
 NSString* ORMTCAThresholdChanged                = @"ORMTCAThresholdChanged";
@@ -834,9 +841,48 @@ tubRegister;
     }
 }
 
-- (NSString*) StringForThreshold:(int) threshold_index {
+- (NSString*) StringForThreshold:(int) threshold_index Rosetta:rosetta {
     NSString *ret;
-    
+    if (rosetta) {
+        switch (threshold_index) {
+            case MTC_N100_HI_THRESHOLD_INDEX:
+                ret = @"MTC/A,NHit100Lo,Threshold";
+                break;
+            case MTC_N100_MED_THRESHOLD_INDEX:
+                ret = @"MTC/A,NHit100Med,Threshold";
+                break;
+            case MTC_N100_LO_THRESHOLD_INDEX:
+                ret = @"MTC/A,NHit100Lo,Threshold";
+                break;
+            case MTC_N20_THRESHOLD_INDEX:
+                ret = @"MTC/A,NHit20,Threshold";
+                break;
+            case MTC_N20LB_THRESHOLD_INDEX:
+                ret = @"MTC/A,NHit20LB,Threshold";
+                break;
+            case MTC_ESUMH_THRESHOLD_INDEX:
+                ret = @"MTC/A,ESumHi,Threshold";
+                break;
+            case MTC_ESUML_THRESHOLD_INDEX:
+                ret = @"MTC/A,ESumLow,Threshold";
+                break;
+            case MTC_OWLN_THRESHOLD_INDEX:
+                ret = @"MTC/A,OWLN,Threshold";
+                break;
+            case MTC_OWLEHI_THRESHOLD_INDEX:
+                ret = @"MTC/A,OWLEHi,Threshold";
+                break;
+            case MTC_OWLELO_THRESHOLD_INDEX:
+                ret = @"MTC/A,OWLELo,Threshold";
+                break;
+            default:
+                ret =@"";
+                [NSException raise:@"MTCModelError" format:@"Given index ( %i ) is not a valid threshold index",threshold_index];
+                break;
+                
+                return ret;
+        }
+    }
     switch (threshold_index) {
         case MTC_N100_HI_THRESHOLD_INDEX:
             ret = @"N100H_Threshold";
@@ -878,37 +924,37 @@ tubRegister;
 
 - (void) loadFromSearialization:(NSMutableDictionary*) serial {
     //This function will let any exceptions from below bubble up
-    [self setThresholdOfType:MTC_N100_HI_THRESHOLD_INDEX fromUnits:MTC_RAW_UNITS toValue:[[serial objectForNestedKey:[self StringForThreshold:MTC_N100_HI_THRESHOLD_INDEX] ] intValue]];
-    [self setThresholdOfType:MTC_N100_MED_THRESHOLD_INDEX fromUnits:MTC_RAW_UNITS toValue:[[serial objectForNestedKey:[self StringForThreshold:MTC_N100_MED_THRESHOLD_INDEX] ] intValue]];
-    [self setThresholdOfType:MTC_N100_LO_THRESHOLD_INDEX fromUnits:MTC_RAW_UNITS toValue:[[serial objectForNestedKey:[self StringForThreshold:MTC_N100_LO_THRESHOLD_INDEX] ] intValue]];
-    [self setThresholdOfType:MTC_N20_THRESHOLD_INDEX fromUnits:MTC_RAW_UNITS toValue:[[serial objectForNestedKey:[self StringForThreshold:MTC_N20_THRESHOLD_INDEX] ] intValue]];
-    [self setThresholdOfType:MTC_N20LB_THRESHOLD_INDEX fromUnits:MTC_RAW_UNITS toValue:[[serial objectForNestedKey:[self StringForThreshold:MTC_N20LB_THRESHOLD_INDEX] ] intValue]];
-    [self setThresholdOfType:MTC_ESUMH_THRESHOLD_INDEX fromUnits:MTC_RAW_UNITS toValue:[[serial objectForNestedKey:[self StringForThreshold:MTC_ESUMH_THRESHOLD_INDEX] ] intValue]];
-    [self setThresholdOfType:MTC_ESUML_THRESHOLD_INDEX fromUnits:MTC_RAW_UNITS toValue:[[serial objectForNestedKey:[self StringForThreshold:MTC_ESUML_THRESHOLD_INDEX] ] intValue]];
-    [self setThresholdOfType:MTC_OWLN_THRESHOLD_INDEX fromUnits:MTC_RAW_UNITS toValue:[[serial objectForNestedKey:[self StringForThreshold:MTC_OWLN_THRESHOLD_INDEX] ] intValue]];
-    [self setThresholdOfType:MTC_OWLEHI_THRESHOLD_INDEX fromUnits:MTC_RAW_UNITS toValue:[[serial objectForNestedKey:[self StringForThreshold:MTC_OWLEHI_THRESHOLD_INDEX] ] intValue]];
-    [self setThresholdOfType:MTC_OWLELO_THRESHOLD_INDEX fromUnits:MTC_RAW_UNITS toValue:[[serial objectForNestedKey:[self StringForThreshold:MTC_OWLELO_THRESHOLD_INDEX] ] intValue]];
+    [self setThresholdOfType:MTC_N100_HI_THRESHOLD_INDEX fromUnits:MTC_RAW_UNITS toValue:[[serial objectForNestedKey:[self StringForThreshold:MTC_N100_HI_THRESHOLD_INDEX Rosetta:YES] ] intValue]];
+    [self setThresholdOfType:MTC_N100_MED_THRESHOLD_INDEX fromUnits:MTC_RAW_UNITS toValue:[[serial objectForNestedKey:[self StringForThreshold:MTC_N100_MED_THRESHOLD_INDEX Rosetta:YES] ] intValue]];
+    [self setThresholdOfType:MTC_N100_LO_THRESHOLD_INDEX fromUnits:MTC_RAW_UNITS toValue:[[serial objectForNestedKey:[self StringForThreshold:MTC_N100_LO_THRESHOLD_INDEX Rosetta:YES] ] intValue]];
+    [self setThresholdOfType:MTC_N20_THRESHOLD_INDEX fromUnits:MTC_RAW_UNITS toValue:[[serial objectForNestedKey:[self StringForThreshold:MTC_N20_THRESHOLD_INDEX Rosetta:YES] ] intValue]];
+    [self setThresholdOfType:MTC_N20LB_THRESHOLD_INDEX fromUnits:MTC_RAW_UNITS toValue:[[serial objectForNestedKey:[self StringForThreshold:MTC_N20LB_THRESHOLD_INDEX Rosetta:YES] ] intValue]];
+    [self setThresholdOfType:MTC_ESUMH_THRESHOLD_INDEX fromUnits:MTC_RAW_UNITS toValue:[[serial objectForNestedKey:[self StringForThreshold:MTC_ESUMH_THRESHOLD_INDEX Rosetta:YES] ] intValue]];
+    [self setThresholdOfType:MTC_ESUML_THRESHOLD_INDEX fromUnits:MTC_RAW_UNITS toValue:[[serial objectForNestedKey:[self StringForThreshold:MTC_ESUML_THRESHOLD_INDEX Rosetta:YES] ] intValue]];
+    [self setThresholdOfType:MTC_OWLN_THRESHOLD_INDEX fromUnits:MTC_RAW_UNITS toValue:[[serial objectForNestedKey:[self StringForThreshold:MTC_OWLN_THRESHOLD_INDEX Rosetta:YES] ] intValue]];
+    [self setThresholdOfType:MTC_OWLEHI_THRESHOLD_INDEX fromUnits:MTC_RAW_UNITS toValue:[[serial objectForNestedKey:[self StringForThreshold:MTC_OWLEHI_THRESHOLD_INDEX Rosetta:YES] ] intValue]];
+    [self setThresholdOfType:MTC_OWLELO_THRESHOLD_INDEX fromUnits:MTC_RAW_UNITS toValue:[[serial objectForNestedKey:[self StringForThreshold:MTC_OWLELO_THRESHOLD_INDEX Rosetta:YES] ] intValue]];
 
-    [self setPgt_rate:[[serial objectForNestedKey:PulserRateSerializationString] intValue]];
-    [self setIsPedestalEnabledInCSR:[[serial objectForNestedKey:PGT_PED_Mode_SerializationString] boolValue]];
-    [self setPulserEnabled:[[serial objectForNestedKey:PulserEnabledSerializationString] boolValue]];
-    [self setPrescaleValue:[[serial objectForNestedKey:PrescaleValueSerializationString] intValue]];
-    [self setGtMask:[[serial objectForNestedKey:GTMaskSerializationString] unsignedIntValue]];
+    [self setPgt_rate:[[serial objectForNestedKey:PulserRateSerializationString_rosetta] intValue]];
+    [self setIsPedestalEnabledInCSR:[[serial objectForNestedKey:PGT_PED_Mode_SerializationString_rosetta] boolValue]];
+    [self setPulserEnabled:[[serial objectForNestedKey:PulserEnabledSerializationString_rosetta] boolValue]];
+    [self setPrescaleValue:[[serial objectForNestedKey:PrescaleValueSerializationString_rosetta] intValue]];
+    [self setGtMask:[[serial objectForNestedKey:GTMaskSerializationString] unsignedIntValue_rosetta]];
 }
 
 - (NSMutableDictionary*) serializeToDictionary {
     NSMutableDictionary *serial = [NSMutableDictionary dictionaryWithCapacity:30];
     //This function will let any exceptions from below bubble up
-    [serial setObject:[NSNumber numberWithInt:(int) [self getThresholdOfType:MTC_N100_HI_THRESHOLD_INDEX inUnits:MTC_RAW_UNITS]] forKey:[self StringForThreshold:MTC_N100_HI_THRESHOLD_INDEX]];
-    [serial setObject:[NSNumber numberWithInt:(int) [self getThresholdOfType:MTC_N100_MED_THRESHOLD_INDEX inUnits:MTC_RAW_UNITS]] forKey:[self StringForThreshold:MTC_N100_MED_THRESHOLD_INDEX]];
-    [serial setObject:[NSNumber numberWithInt:(int) [self getThresholdOfType:MTC_N100_LO_THRESHOLD_INDEX inUnits:MTC_RAW_UNITS]] forKey:[self StringForThreshold:MTC_N100_LO_THRESHOLD_INDEX]];
-    [serial setObject:[NSNumber numberWithInt:(int) [self getThresholdOfType:MTC_N20_THRESHOLD_INDEX inUnits:MTC_RAW_UNITS]] forKey:[self StringForThreshold:MTC_N20_THRESHOLD_INDEX]];
-    [serial setObject:[NSNumber numberWithInt:(int) [self getThresholdOfType:MTC_N20LB_THRESHOLD_INDEX inUnits:MTC_RAW_UNITS]] forKey:[self StringForThreshold:MTC_N20LB_THRESHOLD_INDEX]];
-    [serial setObject:[NSNumber numberWithInt:(int) [self getThresholdOfType:MTC_ESUMH_THRESHOLD_INDEX inUnits:MTC_RAW_UNITS]] forKey:[self StringForThreshold:MTC_ESUMH_THRESHOLD_INDEX]];
-    [serial setObject:[NSNumber numberWithInt:(int) [self getThresholdOfType:MTC_ESUML_THRESHOLD_INDEX inUnits:MTC_RAW_UNITS]] forKey:[self StringForThreshold:MTC_ESUML_THRESHOLD_INDEX]];
-    [serial setObject:[NSNumber numberWithInt:(int) [self getThresholdOfType:MTC_OWLN_THRESHOLD_INDEX inUnits:MTC_RAW_UNITS]] forKey:[self StringForThreshold:MTC_OWLN_THRESHOLD_INDEX]];
-    [serial setObject:[NSNumber numberWithInt:(int) [self getThresholdOfType:MTC_OWLEHI_THRESHOLD_INDEX inUnits:MTC_RAW_UNITS]] forKey:[self StringForThreshold:MTC_OWLEHI_THRESHOLD_INDEX]];
-    [serial setObject:[NSNumber numberWithInt:(int) [self getThresholdOfType:MTC_OWLELO_THRESHOLD_INDEX inUnits:MTC_RAW_UNITS]] forKey:[self StringForThreshold:MTC_OWLELO_THRESHOLD_INDEX]];
+    [serial setObject:[NSNumber numberWithInt:(int) [self getThresholdOfType:MTC_N100_HI_THRESHOLD_INDEX inUnits:MTC_RAW_UNITS]] forKey:[self StringForThreshold:MTC_N100_HI_THRESHOLD_INDEX Rosetta:NO]];
+    [serial setObject:[NSNumber numberWithInt:(int) [self getThresholdOfType:MTC_N100_MED_THRESHOLD_INDEX inUnits:MTC_RAW_UNITS]] forKey:[self StringForThreshold:MTC_N100_MED_THRESHOLD_INDEX Rosetta:NO]];
+    [serial setObject:[NSNumber numberWithInt:(int) [self getThresholdOfType:MTC_N100_LO_THRESHOLD_INDEX inUnits:MTC_RAW_UNITS]] forKey:[self StringForThreshold:MTC_N100_LO_THRESHOLD_INDEX Rosetta:NO]];
+    [serial setObject:[NSNumber numberWithInt:(int) [self getThresholdOfType:MTC_N20_THRESHOLD_INDEX inUnits:MTC_RAW_UNITS]] forKey:[self StringForThreshold:MTC_N20_THRESHOLD_INDEX Rosetta:NO]];
+    [serial setObject:[NSNumber numberWithInt:(int) [self getThresholdOfType:MTC_N20LB_THRESHOLD_INDEX inUnits:MTC_RAW_UNITS]] forKey:[self StringForThreshold:MTC_N20LB_THRESHOLD_INDEX Rosetta:NO]];
+    [serial setObject:[NSNumber numberWithInt:(int) [self getThresholdOfType:MTC_ESUMH_THRESHOLD_INDEX inUnits:MTC_RAW_UNITS]] forKey:[self StringForThreshold:MTC_ESUMH_THRESHOLD_INDEX Rosetta:NO]];
+    [serial setObject:[NSNumber numberWithInt:(int) [self getThresholdOfType:MTC_ESUML_THRESHOLD_INDEX inUnits:MTC_RAW_UNITS]] forKey:[self StringForThreshold:MTC_ESUML_THRESHOLD_INDEX Rosetta:NO]];
+    [serial setObject:[NSNumber numberWithInt:(int) [self getThresholdOfType:MTC_OWLN_THRESHOLD_INDEX inUnits:MTC_RAW_UNITS]] forKey:[self StringForThreshold:MTC_OWLN_THRESHOLD_INDEX Rosetta:NO]];
+    [serial setObject:[NSNumber numberWithInt:(int) [self getThresholdOfType:MTC_OWLEHI_THRESHOLD_INDEX inUnits:MTC_RAW_UNITS]] forKey:[self StringForThreshold:MTC_OWLEHI_THRESHOLD_INDEX Rosetta:NO]];
+    [serial setObject:[NSNumber numberWithInt:(int) [self getThresholdOfType:MTC_OWLELO_THRESHOLD_INDEX inUnits:MTC_RAW_UNITS]] forKey:[self StringForThreshold:MTC_OWLELO_THRESHOLD_INDEX Rosetta:NO]];
 
     [serial setObject:[NSNumber numberWithUnsignedLong:[self pgt_rate]] forKey:PulserRateSerializationString];
     [serial setObject:[NSNumber numberWithBool:[self isPedestalEnabledInCSR]] forKey:PGT_PED_Mode_SerializationString];
@@ -1720,4 +1766,3 @@ tubRegister;
     }
 }
 @end
-

@@ -272,6 +272,13 @@ extern NSString* PulserRateSerializationString;
 extern NSString* PGT_PED_Mode_SerializationString;
 extern NSString* PulserEnabledSerializationString;
 extern NSString* PrescaleValueSerializationString;
+
+extern NSString* GTMaskSerializationString_rosetta;
+extern NSString* PulserRateSerializationString_rosetta;
+extern NSString* PGT_PED_Mode_SerializationString_rosetta;
+extern NSString* PulserEnabledSerializationString_rosetta;
+extern NSString* PrescaleValueSerializationString_rosetta;
+
 extern NSString* ORMTCModelBasicOpsRunningChanged;
 extern NSString* ORMTCABaselineChanged;
 extern NSString* ORMTCAThresholdChanged;
