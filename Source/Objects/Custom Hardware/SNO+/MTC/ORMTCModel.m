@@ -969,21 +969,6 @@ tubRegister;
 	[self write:aReg value:new_value];
 }
 
-
-- (unsigned long) getMTC_CSR
-{
-	unsigned long aValue = 0;
-	@try {
-		aValue =   [self read:kMtcControlReg];
-	}
-	@catch(NSException* localException) {
-		NSLog(@"Couldn't get a MTC CSR!\n");
-		NSLog(@"Exception: %@\n",localException);
-	}
-	return aValue;
-}
-
-
 - (void) sendMTC_SoftGt
 {
 	[self sendMTC_SoftGt:NO];
@@ -1671,13 +1656,6 @@ tubRegister;
 	[self setBasicOpsRunning:NO];
 	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(doBasicOp) object:nil];
 }
-
-- (void) reportStatus
-{
-	NSLog(@"Mtc control reg: 0x%0x\n", [self getMTC_CSR]);
-}
-
-
 @end
 
 @implementation ORMTCModel (private)
