@@ -328,6 +328,9 @@
 
 
 extern NSString* ORMTCModelBasicOpsRunningChanged;
+extern NSString* ORMTCABaselineChanged;
+extern NSString* ORMTCAThresholdChanged;
+extern NSString* ORMTCAConversionChanged;
 extern NSString* ORMTCModelAutoIncrementChanged;
 extern NSString* ORMTCModelUseMemoryChanged;
 extern NSString* ORMTCModelRepeatDelayChanged;
