@@ -1303,10 +1303,10 @@ tubRegister;
 - (void) loadPrescaleValueToHardware
 {
 	@try {
-        [mtc okCommand:"set_prescale_value", [self prescaleValue]];
+        [mtc okCommand:"set_prescale %u", [self prescaleValue]];
 	}
 	@catch(NSException* localException) {
-		NSLog(@"Could not load the MTC prescale value!\n");		
+		NSLog(@"Could not load the MTC prescale value!\n");
 		NSLog(@"Exception: %@\n",localException);
 		[localException raise];
 	}
@@ -1318,8 +1318,6 @@ tubRegister;
     @try {
 		// Set the coarse GTRIG/PED delay in ns
         [mtc okCommand:"set_gt_delay %f", pedDelay];
-		NSLog(@"Set GT Coarse Delay to %f\n",pedDelay);
-		
 	}
 	@catch(NSException* localException) {
 		NSLog(@"Could not setup the MTC GT-PED delay!\n");
