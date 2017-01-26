@@ -1347,7 +1347,7 @@ tubRegister;
 - (void)  disablePedestal
 {
 	@try {
-        [mtc okCommand:"enable_pedestals"];
+        [mtc okCommand:"disable_pedestals"];
 		NSLog(@"Disabled Pedestals.\n");
 	}
 	@catch(NSException* localException) {
