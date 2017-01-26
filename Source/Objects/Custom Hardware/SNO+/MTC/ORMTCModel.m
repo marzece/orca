@@ -580,7 +580,6 @@ tubRegister;
         case SERVER_OWLN_INDEX:
             return MTC_OWLN_THRESHOLD_INDEX;
             break;
-            
     }
     [NSException raise:@"MTCModelError" format:@"Cannot convert server index %i to model index",server_index];
     return -1;
@@ -590,7 +589,6 @@ tubRegister;
         case MTC_N100_LO_THRESHOLD_INDEX:
             return SERVER_N100L_INDEX;
             break;
-            
         case MTC_N100_MED_THRESHOLD_INDEX:
             return SERVER_N100M_INDEX;
             break;
@@ -714,7 +712,7 @@ tubRegister;
 
 - (float) getThresholdOfType:(int) type inUnits:(int) units
 {
-    if(type<0 || type > MTC_NUM_USED_THRESHOLDS)
+    if(![self thresholdIndexIsValid:type])
     {
         [NSException raise:@"MTCModelError" format:@"Unknown threshold index specified. Cannot continue."];
     }
@@ -749,15 +747,13 @@ tubRegister;
     }
     if(![self ConversionIsValidForThreshold:type])
     {
-        [NSException raise:@"ConversionNotValidError" format:@"Conversion for threhsold %i is not valid",type];
+        [NSException raise:@"ConversionNotValidError" format:@"Conversion for threshold %i is not valid",type];
     }
     float DAC_per_nhit = [self DAC_per_NHIT_ofType:type];
     float DAC_per_mv = [self DAC_per_mV_ofType:type];
     float mv_per_nhit = DAC_per_nhit/DAC_per_mv;
 
     if(in_units == MTC_RAW_UNITS) {
-        // Note the following conversion is in relative units for absolute units subtract 5000mV
-        // and replace the [self getbaseline] with just 4096
         float value_in_mv = ((aThreshold - [self getBaselineOfType:type])/DAC_per_mv);
         
         if(out_units == MTC_mV_UNITS)
@@ -845,7 +841,6 @@ tubRegister;
         case MTC_N100_HI_THRESHOLD_INDEX:
             ret = @"N100H_Threshold";
             break;
-
         case MTC_N100_MED_THRESHOLD_INDEX:
             ret = @"N100M_Threshold";
             break;
@@ -920,7 +915,18 @@ tubRegister;
     return serial;
 }
 
-
+- (BOOL) thresholdIndexIsValid: (int) index {
+    return  index > 0 && index < MTC_NUM_THRESHOLDS;
+}
+- (BOOL) thresholdIsNHit:(int)index {
+    if (![self thresholdIndexIsValid:index]) {
+        [NSException raise:@"MTCModelError" format:@"Unknown threshold index specified."];
+    }
+    return  index != MTC_ESUML_THRESHOLD_INDEX  &&
+            index != MTC_ESUMH_THRESHOLD_INDEX  &&
+            index != MTC_OWLELO_THRESHOLD_INDEX &&
+            index != MTC_OWLEHI_THRESHOLD_INDEX;
+}
 
 #pragma mark •••HW Access
 - (short) getNumberRegisters
