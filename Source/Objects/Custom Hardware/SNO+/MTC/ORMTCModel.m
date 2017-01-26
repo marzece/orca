@@ -1195,8 +1195,8 @@ tubRegister;
 {
     uint32_t gtCrateMaskValue = [self GTCrateMask];
 	@try {
-		[self write:kMtcGmskReg value: gtCrateMaskValue];
-		NSLog(@"Set GT Crate Mask: 0x%08x\n",gtCrateMaskValue);
+        [mtc okCommand:"set_gt_crate_mask %lu", gtCrateMaskValue];
+        NSLog(@"Set GT Crate Mask: 0x%08x\n",gtCrateMaskValue);
 	}
 	@catch(NSException* localException) {
 		NSLog(@"Could not set GT crate mask!\n");					
@@ -1209,7 +1209,7 @@ tubRegister;
 {
 	unsigned long aValue = 0;
 	@try {
-		aValue =  [self read:kMtcGmskReg] & 0x01FFFFFF;	
+		aValue = [mtc intCommand:"get_gt_crate_mask"];
 	}
 	@catch(NSException* localException) {
 		NSLog(@"Could not get GT crate mask!\n");					
