@@ -701,7 +701,7 @@ tubRegister;
     [encoder encodeInt:[self pedestalWidth] forKey:@"MTCPedestalWidth"];
     [encoder encodeInt:[self prescaleValue] forKey:@"MTCPrescaleValue"];
     [encoder encodeInt:[self pgt_rate] forKey:@"MTCPulserRate"];
-    [encoder encodeFloat:[self pedestalDelay] forKey:@"@MTCPedestalDelay"];
+    [encoder encodeFloat:[self pedestalDelay] forKey:@"MTCPedestalDelay"];
     [encoder encodeInt:[self gtMask] forKey:@"MTCGTMask"];
     [encoder encodeInt:[self GTCrateMask] forKey:@"MTCGTCrateMask"];
     [encoder encodeInt:[self pedCrateMask] forKey:@"MTCPedCrateMask"];
@@ -721,6 +721,8 @@ tubRegister;
 
 - (void) setThresholdOfType:(int)type fromUnits:(int)units toValue:(float) aThreshold
 {
+    // This function serves for all threshold setting needs. You can set any threshold in any units (provided a trigger scan was successfully gotten).
+    // One can specify the thresold they'd like to set and the units they're using with the indexes #defined at the top of this file
     if(type<0 || type > MTC_NUM_USED_THRESHOLDS)
     {
         [NSException raise:@"MTCModelError" format:@"Unknown threshold index specified. Cannot continue."];
@@ -1283,6 +1285,7 @@ tubRegister;
 {
 	@try {
         [mtc okCommand:"set_lockout_width %u", [self lockoutWidth]];
+        NSLog(@"Set lockout width to %u\n",[self lockoutWidth]);
 	}
 	@catch(NSException* localException) {
 		NSLog(@"Could not load the MTC GT lockout width!\n");		
@@ -1295,6 +1298,7 @@ tubRegister;
 {
 	@try {
         [mtc okCommand:"set_pedestal_width %u", [self pedestalWidth]];
+        NSLog(@"Set ped width to %u\n",[self pedestalWidth]);
 	}
 	@catch(NSException* localException) {
 		NSLog(@"Could not load the MTC pedestal width!\n");	
@@ -1307,6 +1311,8 @@ tubRegister;
 {
 	@try {
         [mtc okCommand:"set_prescale %u", [self prescaleValue]];
+        NSLog(@"Set N100Lo prescale to %u\n", [self prescaleValue]);
+
 	}
 	@catch(NSException* localException) {
 		NSLog(@"Could not load the MTC prescale value!\n");
@@ -1319,8 +1325,9 @@ tubRegister;
 {
     float pedDelay = [self pedestalDelay];
     @try {
-		// Set the coarse GTRIG/PED delay in ns
+		// Set the GTRIG/PED delay in ns
         [mtc okCommand:"set_gt_delay %f", pedDelay];
+        NSLog(@"Set GT-PED delay to %f\n", pedDelay);
 	}
 	@catch(NSException* localException) {
 		NSLog(@"Could not setup the MTC GT-PED delay!\n");
@@ -1385,7 +1392,6 @@ tubRegister;
 		[localException raise];
         return;
 	}
-    [self setIsPedestalEnabledInCSR:YES];
 }
 
 - (void)  disablePedestal
@@ -1399,7 +1405,6 @@ tubRegister;
 		[localException raise];
         return;
 	}
-    [self setIsPedestalEnabledInCSR:NO];
 }
 
 - (void) stopMTCPedestalsFixedRate
