@@ -13,7 +13,7 @@
 //  but that header doesn't compile, so define them here instead - PH)
 enum {
     kPQTypeBool     = 16,   // 8 bit boolean
-    kPQTypeString   = 17,   // variable-length string
+    kPQTypeString   = 25,   // variable-length string
     kPQTypeChar     = 18,   // single 8 bit character
     kPQTypeName     = 19,   // 63-byte name
     kPQTypeInt64    = 20,   // 8-byte integer
