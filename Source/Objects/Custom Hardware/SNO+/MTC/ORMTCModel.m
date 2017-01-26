@@ -31,36 +31,32 @@
 #import "ORRunController.h"
 #import "SNOPModel.h"
 
-//#define uShortDBValue(A) [[mtcDataBase objectForNestedKey:[self getDBKeyByIndex: A]] unsignedShortValue]
-//#define uLongDBValue(A)  [[mtcDataBase objectForNestedKey:[self getDBKeyByIndex: A]] unsignedLongValue]
-//#define floatDBValue(A)  [[mtcDataBase objectForNestedKey:[self getDBKeyByIndex: A]] floatValue]
-
 #pragma mark •••Definitions
-NSString* ORMTCModelESumViewTypeChanged		= @"ORMTCModelESumViewTypeChanged";
-NSString* ORMTCModelNHitViewTypeChanged		= @"ORMTCModelNHitViewTypeChanged";
-NSString* ORMTCModelBasicOpsRunningChanged	= @"ORMTCModelBasicOpsRunningChanged";
-NSString* ORMTCABaselineChanged             = @"ORMTCABaselineChanged";
-NSString* ORMTCAThresholdChanged            = @"ORMTCAThresholdChanged";
-NSString* ORMTCAConversionChanged           = @"ORMTCAConversionChanged";
-NSString* ORMTCModelAutoIncrementChanged	= @"ORMTCModelAutoIncrementChanged";
-NSString* ORMTCModelUseMemoryChanged		= @"ORMTCModelUseMemoryChanged";
-NSString* ORMTCModelRepeatDelayChanged		= @"ORMTCModelRepeatDelayChanged";
-NSString* ORMTCModelRepeatCountChanged		= @"ORMTCModelRepeatCountChanged";
-NSString* ORMTCModelWriteValueChanged		= @"ORMTCModelWriteValueChanged";
-NSString* ORMTCModelMemoryOffsetChanged		= @"ORMTCModelMemoryOffsetChanged";
-NSString* ORMTCModelSelectedRegisterChanged	= @"ORMTCModelSelectedRegisterChanged";
-NSString* ORMTCModelXilinxPathChanged		= @"ORMTCModelXilinxPathChanged";
-NSString* ORMTCModelMtcDataBaseChanged		= @"ORMTCModelMtcDataBaseChanged";
+NSString* ORMTCModelBasicOpsRunningChanged      = @"ORMTCModelBasicOpsRunningChanged";
+NSString* ORMTCABaselineChanged                 = @"ORMTCABaselineChanged";
+NSString* ORMTCAThresholdChanged                = @"ORMTCAThresholdChanged";
+NSString* ORMTCAConversionChanged               = @"ORMTCAConversionChanged";
+NSString* ORMTCModelAutoIncrementChanged        = @"ORMTCModelAutoIncrementChanged";
+NSString* ORMTCModelUseMemoryChanged            = @"ORMTCModelUseMemoryChanged";
+NSString* ORMTCModelRepeatDelayChanged          = @"ORMTCModelRepeatDelayChanged";
+NSString* ORMTCModelRepeatCountChanged          = @"ORMTCModelRepeatCountChanged";
+NSString* ORMTCModelWriteValueChanged           = @"ORMTCModelWriteValueChanged";
+NSString* ORMTCModelMemoryOffsetChanged         = @"ORMTCModelMemoryOffsetChanged";
+NSString* ORMTCModelSelectedRegisterChanged     = @"ORMTCModelSelectedRegisterChanged";
 NSString* ORMTCModelIsPulserFixedRateChanged	= @"ORMTCModelIsPulserFixedRateChanged";
 NSString* ORMTCModelFixedPulserRateCountChanged = @"ORMTCModelFixedPulserRateCountChanged";
 NSString* ORMTCModelFixedPulserRateDelayChanged = @"ORMTCModelFixedPulserRateDelayChanged";
-NSString* ORMtcTriggerNameChanged		= @"ORMtcTriggerNameChanged";
-NSString* ORMTCBasicLock				= @"ORMTCBasicLock";
-NSString* ORMTCStandardOpsLock				= @"ORMTCStandardOpsLock";
-NSString* ORMTCSettingsLock				= @"ORMTCSettingsLock";
-NSString* ORMTCTriggersLock				= @"ORMTCTriggersLock";
-NSString* ORMTCModelMTCAMaskChanged = @"ORMTCModelMTCAMaskChanged";
-NSString* ORMTCModelIsPedestalEnabledInCSR = @"ORMTCModelIsPedestalEnabledInCSR";
+NSString* ORMtcTriggerNameChanged               = @"ORMtcTriggerNameChanged";
+NSString* ORMTCBasicLock                        = @"ORMTCBasicLock";
+NSString* ORMTCStandardOpsLock                  = @"ORMTCStandardOpsLock";
+NSString* ORMTCSettingsLock                     = @"ORMTCSettingsLock";
+NSString* ORMTCTriggersLock                     = @"ORMTCTriggersLock";
+NSString* ORMTCModelMTCAMaskChanged             = @"ORMTCModelMTCAMaskChanged";
+NSString* ORMTCModelIsPedestalEnabledInCSR      = @"ORMTCModelIsPedestalEnabledInCSR";
+NSString* ORMTCPulserRateChanged                = @"ORMTCPulserRateChanged";
+NSString* ORMTCPrescaleValueChanged             = @"ORMTCPrescaleValueChanged";
+NSString* ORMTCGTMaskChanged                    = @"ORMTCGTMaskChanged";
+
 
 #define kMTCRegAddressBase		0x00007000
 #define kMTCRegAddressModifier	0x29
@@ -106,13 +102,10 @@ static SnoMtcNamesStruct reg[kMtcNumRegisters] = {
 @implementation ORMTCModel
 
 @synthesize
-pgt_rate,
 pedestalWidth,
-prescaleValue,
 pedestalDelay,
 pedCrateMask,
 GTCrateMask,
-gtMask,
 lockoutWidth,
 pulserEnabled = _pulserEnabled,
 tubRegister;
@@ -175,7 +168,6 @@ tubRegister;
 - (void) dealloc
 {
     [mtc release];
-    [mtcDataBase release];
     [super dealloc];
 }
 
@@ -374,12 +366,6 @@ tubRegister;
     [[NSNotificationCenter defaultCenter] postNotificationName:ORMTCModelSelectedRegisterChanged object:self];
 }
 
-- (NSMutableDictionary*) mtcDataBase
-{
-    return mtcDataBase;
-}
-
-
 - (BOOL) isPulserFixedRate
 {
 	return isPulserFixedRate;
@@ -421,6 +407,28 @@ tubRegister;
 	fixedPulserRateDelay = aFixedPulserRateDelay;
 	
 	[[NSNotificationCenter defaultCenter] postNotificationName:ORMTCModelFixedPulserRateDelayChanged object:self];
+}
+
+- (void) setGtMask:(uint32_t)_mask {
+    gtMask = _mask;
+    [[NSNotificationCenter defaultCenter] postNotificationName:ORMTCGTMaskChanged object:self];
+}
+- (uint32_t) gtMask {
+    return gtMask;
+}
+- (void) setPgt_rate:(uint32_t)rate {
+    pgt_rate = rate;
+    [[NSNotificationCenter defaultCenter] postNotificationName:ORMTCPulserRateChanged object:self];
+}
+- (uint32_t) pgt_rate {
+    return pgt_rate;
+}
+- (void) setPrescaleValue:(uint16_t)newVal {
+    prescaleValue = newVal;
+    [[NSNotificationCenter defaultCenter] postNotificationName:ORMTCPrescaleValueChanged object:self];
+}
+- (uint16_t) prescaleValue {
+    return prescaleValue;
 }
 
 //hardcoded base addresses (unlikely to ever change)
@@ -610,10 +618,6 @@ tubRegister;
     [NSException raise:@"MTCModelError" format:@"Cannot convert model index %i to server index",model_index];
     return -1;
 }
--(NSMutableDictionary*) get_MTCDataBase
-{
-    return mtcDataBase;
-}
 
 #pragma mark •••Archival
 - (id)initWithCoder:(NSCoder*)decoder
@@ -680,7 +684,6 @@ tubRegister;
 	[encoder encodeInt32:writeValue		forKey:@"ORMTCModelWriteValue"];
 	[encoder encodeInt32:memoryOffset	forKey:@"ORMTCModelMemoryOffset"];
 	[encoder encodeInt:selectedRegister	forKey:@"ORMTCModelSelectedRegister"];
-	[encoder encodeObject:mtcDataBase	forKey:@"ORMTCModelMtcDataBase"];
 	[encoder encodeBool:isPulserFixedRate	forKey:@"ORMTCModelIsPulserFixedRate"];
 	[encoder encodeInt:fixedPulserRateCount forKey:@"ORMTCModelFixedPulserRateCount"];
 	[encoder encodeFloat:fixedPulserRateDelay forKey:@"ORMTCModelFixedPulserRateDelay"];
