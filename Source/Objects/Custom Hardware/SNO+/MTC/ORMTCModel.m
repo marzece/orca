@@ -1152,8 +1152,9 @@ tubRegister;
 - (void) clearPedestalCrateMask
 {
 	@try {
-		[self write:kMtcPmskReg value:0];
-		NSLog(@"Cleared Ped Mask\n");
+        [self setPedCrateMask:0];
+        [self loadPedestalCrateMaskToHardware];
+        NSLog(@"Cleared Ped Mask\n");
 	}
 	@catch(NSException* localException) {
 		NSLog(@"Could not clear a Ped mask!\n");					
@@ -1167,7 +1168,7 @@ tubRegister;
 {
     uint32_t pedMaskValue = [self pedCrateMask];
 	@try {
-		[self write:kMtcPmskReg value: pedMaskValue];
+		[mtc okCommand:"set_ped_crate_mask %lu", pedMaskValue];
 		NSLog(@"Set Ped Mask: 0x%08x\n",pedMaskValue);
 	}
 	@catch(NSException* localException) {
