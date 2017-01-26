@@ -910,7 +910,7 @@ tubRegister;
 }
 
 - (BOOL) thresholdIndexIsValid: (int) index {
-    return  index > 0 && index < MTC_NUM_THRESHOLDS;
+    return  index >= 0 && index < MTC_NUM_THRESHOLDS;
 }
 - (BOOL) thresholdIsNHit:(int)index {
     if (![self thresholdIndexIsValid:index]) {
