@@ -137,8 +137,7 @@ NSString* ORECARunFinishedNotification = @"ORECARunFinishedNotification";
         NSArray *objs = [[(ORAppDelegate*)[NSApp delegate] document] collectObjectsOfClass:NSClassFromString(@"ORMTCModel")];
         if ([objs count]) {
             anMTCModel = [objs objectAtIndex:0];
-            [anMTCModel setDbFloat:[[self ECA_rate] floatValue] forIndex:kPulserPeriod]; //Set pulser rate in GUI
-            [anMTCModel setThePulserRate:[[self ECA_rate] floatValue]]; //UNCOMMENT THIS LINE BEFORE COMMISSIONING
+            [anMTCModel setPgtRate:[[self ECA_rate] floatValue]]; //UNCOMMENT THIS LINE BEFORE COMMISSIONING
         }
     }
 
@@ -192,7 +191,7 @@ NSString* ORECARunFinishedNotification = @"ORECARunFinishedNotification";
 
         /*Check whether PED EXT bit is enabled. Otherwise the GT will latch the 10MHz
          clock and cause a 20ns uncertainty in the TAC measurements*/
-        if(!([[anMTCModel dbObjectByIndex:kGtMask] intValue] & MTC_EXT_8_MASK)){
+        if(!([anMTCModel gtMask] & MTC_EXT_8_MASK)){
             NSLogColor([NSColor redColor], @" Enable EXT PED bit in the MTC trigger mask. Stopping ECAs... \n");
             goto stop;
         }
@@ -282,9 +281,9 @@ NSString* ORECARunFinishedNotification = @"ORECARunFinishedNotification";
 
     NSLog(@"Starting ECA Pedestal Run... \n");
 
-    double coarse_delay = [anMTCModel dbFloatByIndex:8];
-    double fine_delay = [anMTCModel dbFloatByIndex:9];
-    double pedestal_width = [anMTCModel dbFloatByIndex:1];
+    double coarse_delay = [anMTCModel coarseDelay];
+    double fine_delay = [anMTCModel fineDelay]/100.0;
+    double pedestal_width = [anMTCModel pedestalWidth];
 
     //EPED headers
     [aSNOPModel updateEPEDStructWithCoarseDelay: (255 - floor(coarse_delay/10.0)) fineDelay: (unsigned int)fine_delay chargePulseAmp: 0x0	pedestalWidth: (unsigned int)pedestal_width calType: 10 + (ECA_pattern+1)];
@@ -353,9 +352,9 @@ NSString* ORECARunFinishedNotification = @"ORECARunFinishedNotification";
 
     NSLog(@"Starting ECA TSlope Run... \n");
 
-    double coarse_delay = [anMTCModel dbFloatByIndex:8];
-    double fine_delay = [anMTCModel dbFloatByIndex:9];
-    double pedestal_width = [anMTCModel dbFloatByIndex:1];
+    double coarse_delay = [anMTCModel coarseDelay];
+    double fine_delay = [anMTCModel fineDelay]/100.0;
+    double pedestal_width = [anMTCModel pedestalWidth];
 
     //Get time delays
     const int tslope_nsteps = 50; //Hardcoded to 50 for the time being
@@ -405,8 +404,8 @@ NSString* ORECARunFinishedNotification = @"ORECARunFinishedNotification";
                 NSLog(@"************************* \n");
 
                 dispatch_sync(dispatch_get_main_queue(), ^{
-                    [anMTCModel setupGTCorseDelay:current_coarse_delay]; //UNCOMMENT THIS LINE BEFORE COMMISSIONING
-                    [anMTCModel setupGTFineDelay:current_fine_delay]; //UNCOMMENT THIS LINE BEFORE COMMISSIONING
+                    [anMTCModel setCoarseDelay:current_coarse_delay]; //UNCOMMENT THIS LINE BEFORE COMMISSIONING
+                    [anMTCModel setFineDelay:current_fine_delay]; //UNCOMMENT THIS LINE BEFORE COMMISSIONING
                 });
 
                 [aSNOPModel updateEPEDStructWithCoarseDelay: 255 - floor(current_coarse_delay/10.0)
