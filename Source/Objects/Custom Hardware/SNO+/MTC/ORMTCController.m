@@ -811,6 +811,7 @@
 {
     int threshold_index;
     float value;
+    BOOL lockedOrNotRunningMaintenance = [gSecurity runInProgressButNotType:eMaintenanceRunType orIsLocked:ORMTCBasicLock];
     for(int i=FIRST_NHIT_TAG;i<=LAST_NHIT_TAG;i++)
     {
         @try {
@@ -820,7 +821,7 @@
                 [[nhitMatrix cellWithTag:i] setStringValue:@"--"];
                 continue;
             }
-            [[nhitMatrix cellWithTag:i] setEnabled:YES];
+            [[nhitMatrix cellWithTag:i] setEnabled:!lockedOrNotRunningMaintenance];
             value = [model getThresholdOfType: threshold_index inUnits:units];
         } @catch (NSException *exception) {
             NSLogColor([NSColor redColor], @"Failed to interpret field with tag %i, Reason: %@\n. Aborting after %i changes already made\n", i,[exception reason],i-FIRST_NHIT_TAG);
@@ -834,6 +835,7 @@
 {
     int threshold_index;
     float value;
+    BOOL lockedOrNotRunningMaintenance = [gSecurity runInProgressButNotType:eMaintenanceRunType orIsLocked:ORMTCBasicLock];
     for(int i=FIRST_ESUM_TAG;i<=LAST_ESUM_TAG;i++)
     {
         @try {
@@ -843,7 +845,7 @@
                 [[esumMatrix cellWithTag:i] setStringValue:@"--"];
                 continue;
             }
-            [[esumMatrix cellWithTag:i] setEnabled:YES];
+            [[esumMatrix cellWithTag:i] setEnabled:!lockedOrNotRunningMaintenance];
             value = [model getThresholdOfType: threshold_index inUnits:units];
         } @catch (NSException *exception) {
             NSLogColor([NSColor redColor], @"Failed to interpret field with tag %i, Reason: %@\n. Aborting after %i changes already made\n", i,[exception reason],i-FIRST_ESUM_TAG);
