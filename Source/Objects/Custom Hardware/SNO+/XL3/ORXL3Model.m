@@ -4447,6 +4447,29 @@ err:
     
     NSLog(@"%@ HV interlock is %@\n",[[self xl3Link] crateName], isGood?@"GOOD":@"BAD");
 }
+- (void) readHVRelays {
+    NSLog(@"Starting READ HV RELAYS\n");
+    char payload[XL3_PAYLOAD_SIZE];
+    memset(payload, 0, XL3_PAYLOAD_SIZE);
+    GetHVRelaysResults* data = (GetHVRelaysResults*) payload;
+    
+    @try {
+        [[self xl3Link] sendCommand:GET_HV_RELAYS_ID withPayload:payload expectResponse:YES];
+    }
+    @catch (NSException *exception) {
+        NSLogColor([NSColor redColor],@"%@ error sending setHVRelays command.\n",[[self xl3Link] crateName]);
+        @throw exception;
+    }
+    uint32_t mask1,mask2,known;
+    
+    if ([xl3Link needToSwap]) {
+        mask1 = swapLong(data->mask1);
+        mask2 = swapLong(data->mask2);
+        known = swapLong(data->relays_known);
+    }
+    NSLog(@"Known = %lu mask1 = %x mask2 = %x\n",known,mask1,mask2);
+}
+
 
 - (void) setHVDacA:(unsigned short)aDac dacB:(unsigned short)bDac
 {

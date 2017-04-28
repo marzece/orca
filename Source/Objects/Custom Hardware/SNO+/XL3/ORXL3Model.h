@@ -458,6 +458,8 @@ enum {
 - (void) hvTriggersOFF;
 - (void) readHVInterlockGood:(BOOL*)isGood;
 - (void) readHVInterlock;
+- (void) readHVRelays;
+
 - (void) setHVDacA:(unsigned short)aDac dacB:(unsigned short)bDac;
 
 #pragma mark •••tests

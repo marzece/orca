@@ -293,6 +293,8 @@
 - (IBAction) monVltThresholdAction:(id)sender;
 - (IBAction) monVltThresholdInInitAction:(id)sender;
 - (IBAction) monVltThresholdSetAction:(id)sender;
+- (IBAction) readHVRelays:(id)sender;
+
 //hv
 @property (assign) IBOutlet NSBox *hvBStatusPanel;
 @property (assign) IBOutlet NSBox *hvAStatusPanel;

@@ -55,18 +55,19 @@
  * of which slots are present and the IDs of all MBs, DBs, and PMTICs. So you
  * would first run RESET_CRATE_ID and then you would do a CRATE_INIT without
  * Xilinx to load the non-default values into the FEC. */
-#define RESET_CRATE_ID            (0x34) 
+#define RESET_CRATE_ID            (0x34)
 /* Set the sequencer mask for multiple slots at a time. */
 #define MULTI_SET_CRATE_SEQUENCERS_ID (0x35)
 /* Set the trigger mask for multiple slots at a time. */
 #define MULTI_SET_CRATE_TRIGGERS_ID   (0x36)
 // HV Tasks
 #define SET_HV_RELAYS_ID          (0x40) //!< turns on/off hv relays
-#define HV_READBACK_ID			      (0x42) //!< reads voltage and current	
-#define READ_PMT_CURRENT_ID	      (0x43) //!< reads pmt current from FEC hv csr	
-#define SETUP_CHARGE_INJ_ID		    (0x44) //!< setup charge injection in FEC hv csr
+#define GET_HV_RELAYS_ID          (0x41) //!< returns the stored relay values
+#define HV_READBACK_ID			      (0x42) //!< reads voltage and current
+#define READ_PMT_CURRENT_ID	     (0x43) //!< reads pmt current from FEC hv csr
+#define SETUP_CHARGE_INJ_ID		   (0x44) //!< setup charge injection in FEC hv csr
 #define MULTI_SETUP_CHARGE_INJ_ID (0x45) //!< setup charge injection for multiple fecs and set dac level
-#define DO_PANIC_DOWN             (0x46) //!< Ramps crate HV to zero
+#define DO_PANIC_DOWN             (0x46) //!< Ramp down HV to zero
 // Tests
 #define FEC_TEST_ID               (0x60) //!< check read/write to FEC registers
 #define MEM_TEST_ID               (0x61) //!< check read/write to FEC ram, address lines
@@ -348,6 +349,12 @@ typedef struct{
 typedef struct{
   uint32_t errorFlags;
 } SetHVRelaysResults;
+
+typedef struct{
+  uint32_t mask1;
+  uint32_t mask2;
+  uint32_t relays_known;
+} GetHVRelaysResults;
 
 typedef struct{
   float voltageA;

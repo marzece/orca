@@ -1374,6 +1374,11 @@ static NSDictionary* xl3Ops;
     [model pollXl3:true];
 }
 
+- (IBAction) readHVRelays:(id)sender{
+    [model readHVRelays];
+
+}
+
 - (IBAction) monVltThresholdAction:(id)sender
 {
     [[sender window] makeFirstResponder:tabView];
