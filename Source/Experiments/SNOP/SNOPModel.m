@@ -19,7 +19,7 @@
 //-------------------------------------------------------------
 
 
-#pragma mark ⅴ쩒mported Files
+#pragma mark 짜짜짜Imported Files
 #import "SNOPModel.h"
 #import "SNOPController.h"
 #import "ORSegmentGroup.h"
@@ -97,7 +97,7 @@ resync;
 
 @synthesize smellieRunFiles;
 
-#pragma mark ⅴ쩒nitialization
+#pragma mark 짜짜짜Initialization
 
 - (id) init
 {
@@ -420,7 +420,7 @@ resync;
     }
 }
 
-#pragma mark ⅴ쩘otifications
+#pragma mark 짜짜짜Notifications
 - (void) registerNotificationObservers
 {
     [super registerNotificationObservers];
@@ -1185,7 +1185,7 @@ static NSComparisonResult compareXL3s(ORXL3Model *xl3_1, ORXL3Model *xl3_2, void
     pdata = nil;
 }
 
-#pragma mark ⅴ쩇ccessors
+#pragma mark 짜짜짜Accessors
 
 - (void) clearOrcaDBConnectionHistory
 {
@@ -1362,7 +1362,7 @@ static NSComparisonResult compareXL3s(ORXL3Model *xl3_1, ORXL3Model *xl3_2, void
 	} // synchronized
 }
 
-#pragma mark ⅴ쩢egment Group Methods
+#pragma mark 짜짜짜Segment Group Methods
 - (void) makeSegmentGroups
 {
     ORSegmentGroup* group = [[ORSegmentGroup alloc] initWithName:@"SNO+ Detector" numSegments:kNumTubes mapEntries:[self setupMapEntries:0]];
@@ -1410,7 +1410,7 @@ static NSComparisonResult compareXL3s(ORXL3Model *xl3_1, ORXL3Model *xl3_2, void
 	
 	return [NSString stringWithFormat:@"SIS3302,Energy,Crate %2d,Card %2d,Channel %2d",[crateName intValue],[cardName intValue],[chanName intValue]];
 }
-#pragma mark ⅴ쩢pecific Dialog Lock Methods
+#pragma mark 짜짜짜Specific Dialog Lock Methods
 - (NSString*) experimentMapLock
 {
 	return @"SNOPMapLock";
@@ -1511,7 +1511,7 @@ static NSComparisonResult compareXL3s(ORXL3Model *xl3_1, ORXL3Model *xl3_2, void
 	return @"";
 }
 
-#pragma mark ⅴ쩊ataTaker
+#pragma mark 짜짜짜DataTaker
 - (void) setDataIds:(id)assigner
 {
     [self setRhdrDataId:[assigner assignDataIds:kLongForm]];
@@ -1552,7 +1552,7 @@ static NSComparisonResult compareXL3s(ORXL3Model *xl3_1, ORXL3Model *xl3_2, void
 }
 
 
-#pragma mark ⅴ쩢notDbDelegate
+#pragma mark 짜짜짜SnotDbDelegate
 
 - (ORCouchDB*) orcaDbRef:(id)aCouchDelegate
 {
@@ -1601,7 +1601,7 @@ static NSComparisonResult compareXL3s(ORXL3Model *xl3_1, ORXL3Model *xl3_2, void
 }
 
 
-#pragma mark ⅴ쩙rcaScript helpers
+#pragma mark 짜짜짜OrcaScript helpers
 
 
 - (void) zeroPedestalMasks
@@ -1864,7 +1864,7 @@ static NSComparisonResult compareXL3s(ORXL3Model *xl3_1, ORXL3Model *xl3_2, void
     }
 
     //Query the OrcaDB and get a dictionary with the parameters
-    NSString *urlString = [NSString stringWithFormat:@"http://%@:%@@%@:%u/%@/_design/standardRuns/_view/getStandardRuns?startkey=[\"%@\",\"%@\",{}]&endkey=[\"%@\",\"%@\",0]&descending=True&include_docs=True",[self orcaDBUserName],[self orcaDBPassword],[self orcaDBIPAddress],[self orcaDBPort],[self orcaDBName],runTypeName,runVersion,runTypeName,runVersion];
+    NSString *urlString = [NSString stringWithFormat:@"https://%@:%@@%@:%u/%@/_design/standardRuns/_view/getStandardRuns?startkey=[\"%@\",\"%@\",{}]&endkey=[\"%@\",\"%@\",0]&descending=True&include_docs=True",[self orcaDBUserName],[self orcaDBPassword],[self orcaDBIPAddress],[self orcaDBPort],[self orcaDBName],runTypeName,runVersion,runTypeName,runVersion];
 
     NSString* urlStringScaped = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSURL *url = [NSURL URLWithString:urlStringScaped];
